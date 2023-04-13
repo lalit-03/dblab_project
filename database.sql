@@ -60,6 +60,7 @@ ALTER TABLE
     `Alumni` ADD UNIQUE `alumni_alumni_email_unique`(`alumni_email`);
 CREATE TABLE `Company`(
     `company_username` VARCHAR(255) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
     `company_name` VARCHAR(255) NOT NULL,
     `company_email` VARCHAR(255) NOT NULL,
     `hiring_since_when` BIGINT NOT NULL
