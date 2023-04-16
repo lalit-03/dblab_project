@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user_query = "SELECT * FROM tpc.Company WHERE company_username='$username'";
         $result = mysqli_query($conn, $user_query);
         $count = mysqli_num_rows($result);
+        
         if($count == 0) {
             if (empty($company_name) || empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
                 $error="Please fill out all the required fields.<br>";
