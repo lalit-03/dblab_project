@@ -79,14 +79,14 @@ ALTER TABLE
     `admin` ADD PRIMARY KEY(`username`);
 CREATE TABLE `Offers`(
     `id` BIGINT NOT NULL,
-    `stud_roll_number` VARCHAR(255) NOT NULL,
+    `username` VARCHAR(255) NOT NULL,
     `role_id` BIGINT NOT NULL,
     `selected` BIGINT NOT NULL
 );
 ALTER TABLE
     `Offers` ADD PRIMARY KEY(`id`);
 CREATE TABLE `Roles`(
-    `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `role_id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `company_username` VARCHAR(255) NOT NULL,
     `Role_Name` VARCHAR(255) NOT NULL,
     `min_cpi` DOUBLE(8, 2) NOT NULL,
@@ -99,11 +99,13 @@ CREATE TABLE `Roles`(
 -- ALTER TABLE
 --     `Roles` ADD PRIMARY KEY(`id`);
 ALTER TABLE
-    `Offers` ADD CONSTRAINT `offers_stud_roll_number_foreign` FOREIGN KEY(`stud_roll_number`) REFERENCES `Student`(`RollNumber`);
+    `Offers` ADD CONSTRAINT `offers_stud_roll_number_foreign` FOREIGN KEY(`username`) REFERENCES `Student`(`username`);
+alter table offers modify id bigint(20) auto_increment;
 ALTER TABLE
     `Roles` ADD CONSTRAINT `roles_company_username_foreign` FOREIGN KEY(`company_username`) REFERENCES `Company`(`company_username`);
 ALTER TABLE
     `Offers` ADD CONSTRAINT `offers_role_id_foreign` FOREIGN KEY(`role_id`) REFERENCES `Roles`(`id`);
 alter table Student alter placed_company Set Default 'Not Placed';
-alter table Student alter ctc Set Default 0;git
+alter table Student alter ctc Set Default 0;
 ALTER TABLE Roles ADD batch BIGINT NOT NULL;
+
