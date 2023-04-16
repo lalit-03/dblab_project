@@ -1,7 +1,7 @@
 <?php
 include "admin_boiler.php";
 if(!isset($_GET['id']))die();
-$res=$conn->query("select * from student where username='".htmlspecialchars($_GET['id'])."';");
+$res=$conn->query("select * from Student where username='".htmlspecialchars($_GET['id'])."';");
 if($res->num_rows==0){
     echo "No such student.";
     die();

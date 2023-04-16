@@ -3,11 +3,11 @@ include "admin_boiler.php";
 if(!isset($_GET['id'])){
     die();
 }
-$stud = $conn->query("select * from student where username='".$_GET['id']."';");
+$stud = $conn->query("select * from Student where username='".$_GET['id']."';");
 if($stud->num_rows==0)die();
 $res = $stud->fetch_assoc();
 $cpi = ($res['sem1_spi']+$res['sem2_spi']+$res['sem3_spi']+$res['sem4_spi']+$res['sem5_spi']+$res['sem6_spi']+$res['sem7_spi']+$res['sem8_spi'])/8;
-$eligible = $conn->query("select company_name,role_id,Role_Name,min_cpi,description,mode_of_interview,ctc from roles natural join company where min_cpi<=".$cpi." order by ctc desc;");
+$eligible = $conn->query("select company_name,role_id,Role_Name,min_cpi,description,mode_of_interview,ctc from Roles natural join Company where min_cpi<=".$cpi." order by ctc desc;");
 if($eligible->num_rows > 0){
     while($row = $eligible->fetch_assoc()){
         $ress1 = $conn->query("select count(*) as c from offers where username='".$_GET['id']. "' and role_id=".$row['role_id'].";");

@@ -17,12 +17,15 @@ error_reporting(-1);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    $res = $conn->query("select student_name, RollNumber, username from Student order by RollNumber limit 100;");
-    if($res->num_rows > 0){
-        while($row = $res->fetch_assoc()){
-            
-            $output .= "<a href='./student_details.php?id=". $row['username'] ."'><div class='card'>". $row['student_name'] . $row['RollNumber'] . "</div></a></br>";
+    $result = $conn->query("select student_name, RollNumber, username from Student order by RollNumber limit 100;");
+    if($result->num_rows > 0){
+        $output .= "<table class='table table-striped table-hover'><thead><tr><th>Name</th><th>Roll Number</th><th>Username</th></tr></thead><tbody>";
+        while($row = $result->fetch_assoc()){
+            $output .= "<tr><td><a href='./student_details.php?id=". $row['username'] ."'>". $row['student_name'] . "</a></td><td>". $row['RollNumber'] ."</td><td>". $row['username'] ."</td></tr>";
         }
+        $output .= "</tbody></table>";
+    } else {
+        $output = "No data available";
     }
     
 $conn->close();
@@ -37,6 +40,6 @@ $conn->close();
         <script src="bootstrap-5.3.0-alpha2-dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
-        HA HA AHA HA <?php echo $output;?>
+        <?php echo $output;?>
     </body>
 </html>
