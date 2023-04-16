@@ -4,8 +4,8 @@
 ini_set('display_errors', 1);
 error_reporting(-1);
 $host = "localhost";
-$username = "root";
-$password = "";
+$username = "test";
+$password = "test";
 $conn = mysqli_connect($host, $username, $password);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Check if the connection was successful

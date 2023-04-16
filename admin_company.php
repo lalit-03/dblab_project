@@ -4,7 +4,7 @@ require_once "admin_boiler.php";
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Display Data from SQL Table</title>
+	<title>Admin Company</title>
 	<script>
 		function show_company() {
 			var table = document.getElementById("table");
@@ -27,7 +27,6 @@ require_once "admin_boiler.php";
 			if (form_div.style.display === "none") {
             	form_div.style.display = "block";
         	}
-			debugger;
 			var companyRow = document.getElementById("company_" + id);
 			var companyUserName = companyRow.cells[0].innerHTML;
 			var companyName = companyRow.cells[1].innerHTML;
@@ -40,7 +39,7 @@ require_once "admin_boiler.php";
 			form.elements["new_company_name"].value = companyName;
 			form.elements["new_company_email"].value = companyEmail;
 			form.elements["new_company_hiring_since_when"].value = companyHiring;
-			form.elements["new_company_password"].value = companyPassword;
+			form.elements["new_password"].value = companyPassword;
 			form.style.display = "block";
 		}
 
@@ -70,7 +69,7 @@ require_once "admin_boiler.php";
             if ($result->num_rows > 0) {
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
-                    echo "<tr id='company_" . $row["company_username"] . "'><td>" . $row["company_username"]. "</td><td>" . $row["company_name"]. "</td><td>" . $row["company_email"]. "</td><td>" . $row["hiring_since_when"]. "</td><td>" . $row["company_password"]. "</td>
+                    echo "<tr id='company_" . $row["company_username"] . "'><td>" . $row["company_username"]. "</td><td>" . $row["company_name"]. "</td><td>" . $row["company_email"]. "</td><td>" . $row["hiring_since_when"]. "</td><td>" . $row["password"]. "</td>
                         <td><button onclick=showEditForm('" . $row["company_username"] . "')>Edit</button></td>
                         <td><form action='' method='POST' onsubmit='return confirmDelete()'><input type='hidden' name='company_username' value='" . $row['company_username'] . "'/><input type='submit' name='delete' value='Delete'/></form></td></tr>";
                 }
@@ -104,8 +103,8 @@ require_once "admin_boiler.php";
 				$company_name = $_POST['new_company_name'];
 				$company_email = $_POST['new_company_email'];
 				$hiring_since_when = $_POST['new_company_hiring_since_when'];
-				$company_password = $_POST['new_company_password'];
-				$update_company = "UPDATE `Company` set `company_name` = '$company_name', `company_email` = '$company_email', `hiring_since_when` = '$hiring_since_when', `company_password` = '$company_password' WHERE `company_username` = '$id'";
+				$password = $_POST['new_password'];
+				$update_company = "UPDATE `Company` set `company_name` = '$company_name', `company_email` = '$company_email', `hiring_since_when` = '$hiring_since_when', `password` = '$password' WHERE `company_username` = '$id'";
 				if ($conn->query($update_company) === TRUE) {
 				    header("Location: ".$_SERVER['PHP_SELF']);
 				} else {
@@ -125,7 +124,7 @@ require_once "admin_boiler.php";
 				<label>Hiring Since When:</label> &emsp;
 				<input type="text" name="new_company_hiring_since_when"><br>
 				<label>Password</label> &emsp;
-				<input type="text" name="new_company_password"><br>
+				<input type="text" name="new_password"><br>
 				<input type="submit" name="update" value="update">
 				<button onclick="hideEditForm()">Cancel</button>
             </form>

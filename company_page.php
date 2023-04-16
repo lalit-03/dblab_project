@@ -11,7 +11,7 @@ error_reporting(-1);
         $host = 'localhost';
         $username = 'test';
         $password = 'test';
-        $database = 'tpc';
+        $database = 'dblab_project';
     
         $conn = new mysqli($host, $username, $password, $database);
         
