@@ -8,9 +8,9 @@ error_reporting(-1);
     }
 
     $host = 'localhost';
-    $username = 'test';
-    $password = 'test';
-    $database = 'tpc';
+    $username = 'root';
+    $password = '';
+    $database = 'dblab_project';
 
     $conn = new mysqli($host, $username, $password, $database);
     
@@ -78,6 +78,7 @@ $conn->close();
                 <button type="submit" class="btn btn-primary">Execute</button>
             </form>
         </div>
+        <a href="./admin_student_list.php"><button class="btn btn-primary">Student List</button></a>
     </body>
 </html>
 <?php

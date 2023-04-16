@@ -9,9 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Connect to the MySQL database
     $db_host = 'localhost';
-    $db_user = 'test';
-    $db_password = 'test';
-    $db_name = 'tpc';
+    $db_user = 'root';
+    $db_password = '';
+    $db_name = 'dblab_project';
     
     $db = new mysqli($db_host, $db_user, $db_password, $db_name);
 
