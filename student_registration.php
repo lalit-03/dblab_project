@@ -123,6 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			</ul>
 	</nav>
 <body>
+	<div class="container mt-3">
 	<h2>Add Student Record</h2>
 	<form method="post" action="student_registration.php">
 		<div class="row gy-6">
@@ -240,5 +241,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	</form>	
 	</div>
 	<br>
+</div>
 </body>
 </html>

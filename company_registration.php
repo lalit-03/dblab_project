@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<link href="bootstrap-5.3.0-alpha2-dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="bootstrap-5.3.0-alpha2-dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body style="background-color:powderblue;"">
+<body style="background-color:powderblue;">
 	<div class="container-fluid p-5 bg-primary text-white text-center">
 		<h1 class="display-1">Company Registration Form</h1>
 		<p>Enter company name and email, create a username and password to register.</p>
