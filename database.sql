@@ -104,7 +104,7 @@ alter table offers modify id bigint(20) auto_increment;
 ALTER TABLE
     `Roles` ADD CONSTRAINT `roles_company_username_foreign` FOREIGN KEY(`company_username`) REFERENCES `Company`(`company_username`);
 ALTER TABLE
-    `Offers` ADD CONSTRAINT `offers_role_id_foreign` FOREIGN KEY(`role_id`) REFERENCES `Roles`(`id`);
+    `Offers` ADD CONSTRAINT `offers_role_id_foreign` FOREIGN KEY(`role_id`) REFERENCES `Roles`(`role_id`);
 alter table Student alter placed_company Set Default 'Not Placed';
 alter table Student alter ctc Set Default 0;
 ALTER TABLE Roles ADD batch BIGINT NOT NULL;
