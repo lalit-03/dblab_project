@@ -8,8 +8,8 @@ error_reporting(-1);
     }
 
     $host = 'localhost';
-    $username = 'root';
-    $password = '';
+    $username = 'test';
+    $password = 'test';
     $database = 'dblab_project';
 
     $conn = new mysqli($host, $username, $password, $database);

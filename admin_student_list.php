@@ -8,8 +8,8 @@ error_reporting(-1);
     }
 
     $host = 'localhost';
-    $username = 'root';
-    $password = '';
+    $username = 'test';
+    $password = 'test';
     $database = 'dblab_project';
 
     $conn = new mysqli($host, $username, $password, $database);
@@ -17,7 +17,7 @@ error_reporting(-1);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    $res = $conn->query("select student_name, RollNumber, username from student order by RollNumber limit 100;");
+    $res = $conn->query("select student_name, RollNumber, username from Student order by RollNumber limit 100;");
     if($res->num_rows > 0){
         while($row = $res->fetch_assoc()){
             
