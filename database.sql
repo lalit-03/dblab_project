@@ -105,4 +105,4 @@ ALTER TABLE
 ALTER TABLE
     `Offers` ADD CONSTRAINT `offers_role_id_foreign` FOREIGN KEY(`role_id`) REFERENCES `Roles`(`id`);
 alter table Student alter placed_company Set Default 'Not Placed';
-alter table Student alter ctc Set Default 0;
+alter table Student alter ctc Set Default 0;git
