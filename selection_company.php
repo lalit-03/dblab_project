@@ -30,10 +30,10 @@ error_reporting(-1);
     else {
         $output = "";
         $elig = 0;
-        $sql = "SELECT id AS offer_id, role_id, student_name, marks_10, marks_12, DoB, RollNumber 
+        $sql = "SELECT id AS offer_id, role_id, student_name, (IF(sem1_spi > 0, sem1_spi, NULL) + IF(sem2_spi > 0, sem2_spi, NULL) + IF(sem3_spi > 0, sem3_spi, NULL) + IF(sem4_spi > 0, sem4_spi, NULL) + IF(sem5_spi > 0, sem5_spi, NULL) + IF(sem6_spi > 0, sem6_spi, NULL) + IF(sem7_spi > 0, sem7_spi, NULL) + IF(sem8_spi > 0, sem8_spi, NULL)) / ((sem1_spi > 0) + (sem2_spi > 0) + (sem3_spi > 0) + (sem4_spi > 0) + (sem5_spi > 0) + (sem6_spi > 0) + (sem7_spi > 0) + (sem8_spi > 0)) AS CPI, marks_10, marks_12, DoB, RollNumber 
             FROM Student 
             NATURAL JOIN Offers 
-            WHERE Offers.selected = 0";
+            WHERE Offers.selected = 0 order by CPI";
         if ($result = $conn->query($sql)) {
             $output .= "<form method='POST' action='selection_company.php'>";
             $output .= "<table class='table'>";

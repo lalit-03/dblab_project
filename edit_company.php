@@ -67,17 +67,17 @@ $conn = mysqli_connect($host, $username, $password);
                     exit();
                 } else {
                     // Display an error message
-                    $output= "<div class='alert alert-danger justify-content-center text-center'>Error updating company details: " . mysqli_error($conn) . "</div>";
+                    $output= "<div class='alert alert-danger justify-content-center text-center'><strong>Error updating company details:" . mysqli_error($conn) . "</strong></div>";
                 }
     
             } else {
                 // Display an error message
-                $output= "<div class='alert alert-danger justify-content-center text-center'>Incorrect old password</div>";
+                $output= "<div class='alert alert-danger justify-content-center text-center'><strong>Incorrect old password</strong></div>";
             }
     
         } else {
             // Display an error message
-            $output = "<div class='alert alert-danger justify-content-center text-center'>Error fetching company details: " . mysqli_error($conn) . "</div>";
+            $output = "<div class='alert alert-danger justify-content-center text-center'><strong>Error fetching company details: " . mysqli_error($conn) . "</strong></div>";
         }
     }
 ?>
