@@ -85,6 +85,8 @@ CREATE TABLE `Offers`(
 );
 ALTER TABLE
     `Offers` ADD PRIMARY KEY(`id`);
+ALTER TABLE 
+    `Offers` ADD UNIQUE `unique_offers`(`username`, `role_id`); 
 CREATE TABLE `Roles`(
     `role_id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `company_username` VARCHAR(255) NOT NULL,
@@ -108,4 +110,3 @@ ALTER TABLE
 alter table Student alter placed_company Set Default 'Not Placed';
 alter table Student alter ctc Set Default 0;
 ALTER TABLE Roles ADD batch BIGINT NOT NULL;
-
