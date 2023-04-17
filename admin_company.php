@@ -5,6 +5,10 @@ require_once "admin_boiler.php";
 <html>
 <head>
 	<title>Admin Company</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="bootstrap-5.3.0-alpha2-dist/css/bootstrap.min.css" rel="stylesheet">    
+	<script src="bootstrap-5.3.0-alpha2-dist/js/bootstrap.bundle.min.js"></script>
 	<script>
 		function show_company() {
 			var table = document.getElementById("table");
@@ -44,23 +48,54 @@ require_once "admin_boiler.php";
 		}
 
         function hideEditForm(id) {
-			var form = document.getElementById("editForm");
+			var form = document.getElementById("edit_form");
 			var companyRow = document.getElementById("company_" + id);
 			form.style.display = "none";
 			companyRow.style.display = "table-row";
 		}
 	</script>
 </head>
-<body>
-	<button id="company_data" onclick="show_company()">Show Table</button>
+<body style="background-color:#000000;">
+	<div class="container-fluid p-5 bg-dark text-white text-center border">
+				<h1 class="display-1">Company List</h1>
+				<p>Analyse, Edit, Delete Company Records.</p>
+				<nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
+				<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="admin_page.php">Terminal</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="admin_student_list.php">Student List</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="admin_company.php">Companies</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="admin_roles.php">Roles</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="logout_testing.php">Logout</a>
+				</li>
+				</ul>
+			</nav>
+	</div>
+	<br>
+	<div class="container mt-3">
+		<div class="row gy-6">
+			<button id="company_data" onclick="show_company()" type="submit" class="btn btn-danger btn-large justify-content-center">Show Table</button>
+		</div>
+		<br>
+	<!-- <button id="company_data" onclick="show_company()">Show Table</button> -->
 	
-	<table id="table" style="display: none" border=1>
+	<table class='table table-dark table-stripe table-hover' id="table">
 		<tr>
 			<th>Username</th>
 			<th>Name</th>
 			<th>E-Mail</th>
 			<th>Hiring Since</th>
 			<th>Password</th>
+			<th>Edit?</th>
+			<th>Delete?</th>
 		</tr>
 		<?php
             $sql = "SELECT * FROM Company";
@@ -70,15 +105,15 @@ require_once "admin_boiler.php";
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
                     echo "<tr id='company_" . $row["company_username"] . "'><td>" . $row["company_username"]. "</td><td>" . $row["company_name"]. "</td><td>" . $row["company_email"]. "</td><td>" . $row["hiring_since_when"]. "</td><td>" . $row["password"]. "</td>
-                        <td><button onclick=showEditForm('" . $row["company_username"] . "')>Edit</button></td>
-                        <td><form action='' method='POST' onsubmit='return confirmDelete()'><input type='hidden' name='company_username' value='" . $row['company_username'] . "'/><input type='submit' name='delete' value='Delete'/></form></td></tr>";
+                        <td><button class='btn btn-outline-warning' onclick=showEditForm('" . $row["company_username"] . "')>Edit</button></td>
+                        <td><form action='' method='POST' onsubmit='return confirmDelete()'><input type='hidden' name='company_username' value='" . $row['company_username'] . "'/><button type='submit' name='delete' class='btn btn-outline-danger'>Delete</button></form></td></tr>";
                 }
             } else {
                 echo "0 results";
             }
             if(isset($_POST['delete'])) {
 				$id = $_POST['company_username'];
-                $del_offers = "DELETE FROM `offers` where `role_id` in (select `id` from `roles` WHERE `company_username` = '$id')";
+                $del_offers = "DELETE FROM `Offers` where `role_id` in (select `id` from `Roles` WHERE `company_username` = '$id')";
                 if ($conn->query($del_offers) === TRUE) {
 				    header("Location: ".$_SERVER['PHP_SELF']);
 				} else {
@@ -113,23 +148,33 @@ require_once "admin_boiler.php";
 			}			
 
 			?>
-			<div class='container' id = 'temp' style = 'display:none'>
-            <form method="POST" id = 'edit_form' action = ''>
-				<h3>Edit Company: <span id = 'show_username'></span></h3>
-				<input type="hidden" name="company_username"/>
-				<label>Name:</label> &emsp;
-				<input type="text" name="new_company_name"><br>
-				<label>E-mail:</label> &emsp;
-				<input type="text" name="new_company_email"><br>
-				<label>Hiring Since When:</label> &emsp;
-				<input type="text" name="new_company_hiring_since_when"><br>
-				<label>Password</label> &emsp;
-				<input type="text" name="new_password"><br>
-				<input type="submit" name="update" value="update">
-				<button onclick="hideEditForm()">Cancel</button>
-            </form>
+			<div class="container text-white" id="temp" style="display: none;">
+				<form method="POST" id="edit_form" action="">
+					<h3>Edit Company: <span id="show_username"></span></h3>
+					<input type="hidden" name="company_username">
+					<div class="form-group">
+						<label for="new_company_name">Name:</label>
+						<input type="text" class="form-control" name="new_company_name">
+					</div>
+					<div class="form-group">
+						<label for="new_company_email">E-mail:</label>
+						<input type="text" class="form-control" name="new_company_email">
+					</div>
+					<div class="form-group">
+						<label for="new_company_hiring_since_when">Hiring Since When:</label>
+						<input type="text" class="form-control" name="new_company_hiring_since_when">
+					</div>
+					<div class="form-group">
+						<label for="new_password">Password:</label>
+						<input type="text" class="form-control" name="new_password">
+					</div>
+					<button type="submit" class="btn btn-primary" name="update">Update</button>
+					<button type="button" class="btn btn-secondary" onclick="hideEditForm()">Cancel</button>
+				</form>
 			</div>
 
+
 	</table>
+	</div>
 </body>
 </html>
