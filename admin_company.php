@@ -148,29 +148,21 @@ require_once "admin_boiler.php";
 			}			
 
 			?>
-			<div class="container text-white" id="temp" style="display: none;">
-				<form method="POST" id="edit_form" action="">
-					<h3>Edit Company: <span id="show_username"></span></h3>
-					<input type="hidden" name="company_username">
-					<div class="form-group">
-						<label for="new_company_name">Name:</label>
-						<input type="text" class="form-control" name="new_company_name">
-					</div>
-					<div class="form-group">
-						<label for="new_company_email">E-mail:</label>
-						<input type="text" class="form-control" name="new_company_email">
-					</div>
-					<div class="form-group">
-						<label for="new_company_hiring_since_when">Hiring Since When:</label>
-						<input type="text" class="form-control" name="new_company_hiring_since_when">
-					</div>
-					<div class="form-group">
-						<label for="new_password">Password:</label>
-						<input type="text" class="form-control" name="new_password">
-					</div>
-					<button type="submit" class="btn btn-primary" name="update">Update</button>
-					<button type="button" class="btn btn-secondary" onclick="hideEditForm()">Cancel</button>
-				</form>
+			<div class='container text-white' id = 'temp' style = 'display:none'>
+            <form method="POST" id = 'edit_form' action = ''>
+				<h3>Edit Company: <span id = 'show_username'></span></h3>
+				<input type="hidden" name="company_username"/>
+				<label>Name:</label> &emsp;
+				<input type="text" name="new_company_name"><br>
+				<label>E-mail:</label> &emsp;
+				<input type="text" name="new_company_email"><br>
+				<label>Hiring Since When:</label> &emsp;
+				<input type="text" name="new_company_hiring_since_when"><br>
+				<label>Password</label> &emsp;
+				<input type="text" name="new_password"><br>
+				<input type="submit" name="update" value="update">
+				<button onclick="hideEditForm()">Cancel</button>
+            </form>
 			</div>
 
 

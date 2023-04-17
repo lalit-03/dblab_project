@@ -5,6 +5,10 @@ require_once "admin_boiler.php";
 <html>
 <head>
 	<title>Admin Roles</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="bootstrap-5.3.0-alpha2-dist/css/bootstrap.min.css" rel="stylesheet">    
+	<script src="bootstrap-5.3.0-alpha2-dist/js/bootstrap.bundle.min.js"></script>
 	<script>
 		function show_roles() {
 			var table = document.getElementById("table");
@@ -56,17 +60,46 @@ require_once "admin_boiler.php";
 		}
 
         function hideEditForm(id) {
-			var form = document.getElementById("editForm");
+			console.log("heree");
+			var form = document.getElementById("edit_form");
 			var roleRow = document.getElementById("role_" + id);
 			form.style.display = "none";
 			roleRow.style.display = "table-row";
 		}
 	</script>
 </head>
-<body>
-	<button id="role_data" onclick="show_roles()">Show Table</button>
+<body style="background-color:#000000;">
+	<div class="container-fluid p-5 bg-dark text-white text-center border">
+				<h1 class="display-1">Roles List</h1>
+				<p>Analyse, Edit, Delete Roles Records.</p>
+				<nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
+				<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="admin_page.php">Terminal</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="admin_student_list.php">Student List</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="admin_company.php">Companies</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="admin_roles.php">Roles</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="logout_testing.php">Logout</a>
+				</li>
+				</ul>
+			</nav>
+	</div>
+	<br>
+	<div class="container mt-3">
+	<div class="row gy-6">
+		<button id="role_data" onclick="show_roles()" class="btn btn-danger btn-large justify-content-center">Show Table</button>
+	</div>
+	<br>
 	
-	<table id="table" style="display: none" border=1>
+	<table class='table table-dark table-stripe table-hover' id="table">
 		<tr>
 			<th>ID</th>
 			<th>Company</th>
@@ -78,6 +111,8 @@ require_once "admin_boiler.php";
             <th>CTC</th>
             <th>Sector</th>
             <th>Eligible Batches</th>
+			<th>Edit?</th>
+			<th>Delete?</th>
 		</tr>
 		<?php
             $sql = "SELECT * FROM Roles ORDER BY `company_username`";
@@ -88,21 +123,21 @@ require_once "admin_boiler.php";
                 while($row = $result->fetch_assoc()) {
                     echo "<tr id='role_" . $row["role_id"] . "'><td>" . $row["role_id"]. "</td><td>" . $row["company_username"]. "</td><td>" . $row["Role_Name"]. "</td><td>" . $row["min_cpi"]. "</td><td>" . $row["min_qualification"]. "</td>
                         <td>" . $row["description"]. "</td><td>" . $row["mode_of_interview"]. "</td><td>" . $row["ctc"]. "</td><td>" . $row["Sector"]. "</td><td>" . $row["batch"]. "</td>
-                        <td><button onclick=showEditForm('" . $row["role_id"] . "')>Edit</button></td>
-                        <td><form action='' method='POST' onsubmit='return confirmDelete()'><input type='hidden' name='role_id' value='" . $row['role_id'] . "'/><input type='submit' name='delete' value='Delete'/></form></td></tr>";
+                        <td><button class='btn btn-outline-warning' onclick=showEditForm('" . $row["role_id"] . "')>Edit</button></td>
+                        <td><form action='' method='POST' onsubmit='return confirmDelete()'><input type='hidden' name='role_id' value='" . $row['role_id'] . "'/><button class='btn btn-outline-danger' type='submit' name='delete'>Delete</button></form></td></tr>";
                 }
             } else {
                 echo "0 results";
             }
             if(isset($_POST['delete'])) {
 				$id = $_POST['role_id'];
-                $del_offers = "DELETE FROM `offers` where `role_id` = '$id'";
+                $del_offers = "DELETE FROM `Offers` where `role_id` = '$id'";
                 if ($conn->query($del_offers) === TRUE) {
-				    header("Location: ".$_SERVER['PHP_SELF']);
+				    header("Location:admin_page.php");
 				} else {
 				    echo "Error deleting record: " . $conn->error;
 				}
-                $del_role = "DELETE FROM `roles` WHERE `role_id` = '$id'";
+                $del_role = "DELETE FROM `Roles` WHERE `role_id` = '$id'";
 				if ($conn->query($del_role) === TRUE) {
 				    header("Location: ".$_SERVER['PHP_SELF']);
 				} else {
@@ -133,34 +168,56 @@ require_once "admin_boiler.php";
 			}			
 
 			?>
-			<div class='container' id = 'temp' style = 'display:none'>
-            <form method="POST" id = 'edit_form' action = ''>
-				<h3>Edit Role</h3>
-                <label> Role ID: </label> <span id = 'show_ID'></span> <br>
-				<input type="hidden" name="role_id"/>
-                <label> Role Company: </label> <span id = 'show_role_company'></span> <br>
-                <input type="hidden" name="role_company"/>
-				<label>Role Name:</label> &emsp;
-				<input type="text" name="new_role_name"><br>
-				<label>Min CPI:</label> &emsp;
-				<input type="text" name="new_role_cpi"><br>
-				<label>Min Qualification:</label> &emsp;
-				<input type="text" name="new_role_qual"><br>
-				<label>Role Description:</label> &emsp;
-				<input type="text" name="new_role_desc"><br>
-				<label>Mode Of Interview:</label> &emsp;
-				<input type="text" name="new_role_interview"><br>
-				<label>CTC:</label> &emsp;
-				<input type="text" name="new_role_ctc"><br>
-				<label>Sector:</label> &emsp;
-				<input type="text" name="new_role_sector"><br>
-				<label>Eligible Batch:</label> &emsp;
-				<input type="text" name="new_role_batch"><br>
-				<input type="submit" name="update" value="update">
-				<button onclick="hideEditForm()">Cancel</button>
-            </form>
-			</div>
+	<div class='container text-white' id='temp' style='display:none'>
+    <form method='POST' id='edit_form' action=''>
+        <h3 class='text-white'>Edit Role</h3>
+        <div class='form-group'>
+            <label> Role ID: </label> <span id='show_ID' class='text-white'></span> <br>
+            <input type='hidden' name='role_id' />
+        </div>
+        <div class='form-group'>
+            <label> Role Company: </label> <span id='show_role_company' class='text-white'></span> <br>
+            <input type='hidden' name='role_company' />
+        </div>
+        <div class='form-group'>
+            <label>Role Name:</label>
+            <input type='text' class='form-control' name='new_role_name'>
+        </div>
+        <div class='form-group'>
+            <label>Min CPI:</label>
+            <input type='text' class='form-control' name='new_role_cpi'>
+        </div>
+        <div class='form-group'>
+            <label>Min Qualification:</label>
+            <input type='text' class='form-control' name='new_role_qual'>
+        </div>
+        <div class='form-group'>
+            <label>Role Description:</label>
+            <input type='text' class='form-control' name='new_role_desc'>
+        </div>
+        <div class='form-group'>
+            <label>Mode Of Interview:</label>
+            <input type='text' class='form-control' name='new_role_interview'>
+        </div>
+        <div class='form-group'>
+            <label>CTC:</label>
+            <input type='text' class='form-control' name='new_role_ctc'>
+        </div>
+        <div class='form-group'>
+            <label>Sector:</label>
+            <input type='text' class='form-control' name='new_role_sector'>
+        </div>
+        <div class='form-group'>
+            <label>Eligible Batch:</label>
+            <input type='text' class='form-control' name='new_role_batch'>
+        </div>
+        <button type='submit' class='btn btn-primary' name='update'>Update</button>
+        <button type='button' class='btn btn-secondary' onclick='hideEditForm()'>Cancel</button>
+    </form>
+</div>
+
 
 	</table>
+	</div>
 </body>
 </html>
