@@ -101,5 +101,7 @@ error_reporting(-1);
             ?>
         </div>
         <a href="./admin_student_list.php"><button class="btn btn-primary">Student List</button></a>
+        <a href="./admin_company.php"><button class="btn btn-primary">Companies</button></a>
+        <a href="./admin_roles.php"><button class="btn btn-primary">Roles</button></a>
     </body>
 </html>
