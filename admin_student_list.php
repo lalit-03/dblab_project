@@ -93,16 +93,17 @@ $conn->close();
             <br>
             <?php echo $output;?></br>
             <?php 
-            echo "<div class='alert alert-info justify-content-center text-center'><strong>Page Number: ".$page."</strong></div>";
-            echo'<div class="row gy-6">';
+                echo '<div class="row gy-6 justify-content-center">';
+                echo "<div class='col-md-4 text-center'><div class='alert alert-info'><strong>Page Number: ".$page."</strong></div></div>";
 
-            if($page>1){
-                echo "<div class = 'col'><a href='./admin_student_list.php?page_no=".($page-1)."&batch=".$batch,"&branch=".$branch."'><button type='button' class='btn btn-primary btn-lg btn-block'> <-Previous Page</button></a></div>";
-            }
-            if($result->num_rows == 100){
-                echo "<div class ='col'> <a href='./admin_student_list.php?page_no=".($page+1)."&batch=".$batch,"&branch=".$branch."'><button type='button' class='btn btn-primary btn-lg btn-block'>Next Page -> </button></a></div>";
-            }
-        ?>
+                if($page>1){
+                    echo "<div class='col-md-4 text-right'><a href='./admin_student_list.php?page_no=".($page-1)."&batch=".$batch."&branch=".$branch."'><button type='button' class='btn btn-primary btn-lg'> <-Previous Page</button></a></div>";
+                }
+                if($result->num_rows == 100){
+                    echo "<div class='col-md-4 text-left'><a href='./admin_student_list.php?page_no=".($page+1)."&batch=".$batch."&branch=".$branch."'><button type='button' class='btn btn-primary btn-lg'>Next Page -> </button></a></div>";
+                }
+                echo '</div>';
+            ?>
         </div>
     </body>
 </html>
