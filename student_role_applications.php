@@ -1,8 +1,10 @@
 <?php
-include "admin_boiler.php";
 if(!isset($_GET['id'])){
     die();
 }
+$stud_id=$_GET['id'];
+include "student_boiler.php";
+
 $stud = $conn->query("select * from Student where username='".$_GET['id']."';");
 if($stud->num_rows==0)die();
 $res = $stud->fetch_assoc();

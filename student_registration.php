@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		echo $sem7spi . "<br>";
 		echo $sem8spi . "<br>";
 
-        $user_query = "SELECT username FROM tpc.Student WHERE username='$username'";
+        $user_query = "SELECT username FROM dblab_project.Student WHERE username='$username'";
         $result = mysqli_query($conn, $user_query);
         $count = mysqli_num_rows($result);
         if($count == 0) {
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$error="Invalid Phone";
 			}
 			else {
-                $sql = "INSERT INTO tpc.Student (username, RollNumber, student_name, student_phone, student_email, DoB, Batch, degree, branch, marks_10, marks_12, sem1_spi, sem2_spi, sem3_spi, sem4_spi, sem5_spi, sem6_spi, sem7_spi, sem8_spi, password) VALUES ('$username', '$rollno', '$name', '$phone', '$email', '$dob', $batch, '$degree', '$branch', $marks10, $marks12, $sem1spi, $sem2spi, $sem3spi, $sem4spi, $sem5spi, $sem6spi, $sem7spi, $sem8spi, '$password')";
+                $sql = "INSERT INTO dblab_project.Student (username, RollNumber, student_name, student_phone, student_email, DoB, Batch, degree, branch, marks_10, marks_12, sem1_spi, sem2_spi, sem3_spi, sem4_spi, sem5_spi, sem6_spi, sem7_spi, sem8_spi, password) VALUES ('$username', '$rollno', '$name', '$phone', '$email', '$dob', $batch, '$degree', '$branch', $marks10, $marks12, $sem1spi, $sem2spi, $sem3spi, $sem4spi, $sem5spi, $sem6spi, $sem7spi, $sem8spi, '$password')";
                 if (mysqli_query($conn, $sql)) {
                     $message=urlencode("Registration Successful!");
                     header("Location:login.php?message=".$message);

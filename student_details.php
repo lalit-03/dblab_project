@@ -1,6 +1,8 @@
 <?php
-include "admin_boiler.php";
 if(!isset($_GET['id']))die();
+$stud_id=$_GET['id'];
+include "admin_boiler.php";
+
 $res=$conn->query("select * from Student where username='".htmlspecialchars($_GET['id'])."';");
 if($res->num_rows==0){
     echo "No such student.";

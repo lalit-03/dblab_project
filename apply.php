@@ -1,8 +1,10 @@
 <?php
-include "admin_boiler.php";
 if(!isset($_POST['id'])){
     die();
 }
+$stud_id=$_POST['id'];
+include "student_boiler.php";
+
 $stud = $conn->query("select * from Student where username='".$_POST['id']."';");
 if($stud->num_rows==0)die();
 $res = $stud->fetch_assoc();
@@ -24,4 +26,4 @@ foreach($_POST as $role => $val){
         else $conn->query("delete from Offers where username='".$_POST['id']. "' and role_id=".$r1.";");
     }
 }
-header("Location: ./student_details.php?id=".$_POST['id']);
+header("Location: ./student_role_applications.php?id=".$_POST['id']);

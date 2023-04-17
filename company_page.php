@@ -33,7 +33,7 @@ error_reporting(-1);
                 $error="Please fill out all the required fields.<br>";
             }
             else {
-                $sql = "INSERT INTO tpc.Roles (company_username, Role_Name, min_cpi, min_qualification, description, mode_of_interview, ctc, Sector, batch) values ('$company_username', '$role', $mincpi, '$degree', '$description', $mode, $ctc, '$sector', $batch)";
+                $sql = "INSERT INTO dblab_project.Roles (company_username, Role_Name, min_cpi, min_qualification, description, mode_of_interview, ctc, Sector, batch) values ('$company_username', '$role', $mincpi, '$degree', '$description', $mode, $ctc, '$sector', $batch)";
                 if (mysqli_query($conn, $sql)) {
                     $message = "<div class='alert alert-info justify-content-center text-center'><strong>Offer Added!</strong></div>";
                 }
