@@ -85,6 +85,8 @@ CREATE TABLE `Offers`(
 );
 ALTER TABLE
     `Offers` ADD PRIMARY KEY(`id`);
+ALTER TABLE 
+    `Offers` ADD UNIQUE `unique_offers`(`username`, `role_id`); 
 CREATE TABLE `Roles`(
     `role_id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `company_username` VARCHAR(255) NOT NULL,
@@ -100,7 +102,7 @@ CREATE TABLE `Roles`(
 --     `Roles` ADD PRIMARY KEY(`id`);
 ALTER TABLE
     `Offers` ADD CONSTRAINT `offers_stud_roll_number_foreign` FOREIGN KEY(`username`) REFERENCES `Student`(`username`);
-alter table offers modify id bigint(20) auto_increment;
+alter table Offers modify id bigint(20) auto_increment;
 ALTER TABLE
     `Roles` ADD CONSTRAINT `roles_company_username_foreign` FOREIGN KEY(`company_username`) REFERENCES `Company`(`company_username`);
 ALTER TABLE
@@ -108,4 +110,3 @@ ALTER TABLE
 alter table Student alter placed_company Set Default 'Not Placed';
 alter table Student alter ctc Set Default 0;
 ALTER TABLE Roles ADD batch BIGINT NOT NULL;
-
