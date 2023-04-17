@@ -82,12 +82,14 @@ error_reporting(-1);
                 </li>
             </ul>
 	</nav>
-    <?php
-            if(isset($message)){
-                echo $message;
-            }
-    ?>
+    
     <div class="container mt-3">
+        <?php
+            if(isset($_GET['message'])){
+                $msg = $_GET['message'];
+                echo "<div class='alert alert-info justify-content-center text-center'><strong>$msg</strong></div>";
+            }
+        ?>
 		<form action="company_page.php" method="post">
 			<div class="row gy-6">
                 <label for="role" class="form-label">Role Title:</label>
