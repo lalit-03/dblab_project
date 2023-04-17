@@ -128,10 +128,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label class="form-check-label" for="student">Student</label>
                 </div>
             </div>
+            <br>
             <div class="row gy-6">
                 <label for="username" class="form-label">Username:</label>
 				<input class="form-control form-control-lg" type="username" name="username" required placeholder="Enter your username">
             </div>
+            <br>
             <div class="row gy-6">
 				<label for="password" class="form-label">Password:</label>
 				<input class="form-control form-control-lg"  type="password" name="password" required placeholder="Enter your password">

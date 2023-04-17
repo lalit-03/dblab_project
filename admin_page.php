@@ -75,7 +75,16 @@ error_reporting(-1);
 			    <a class="nav-link active" href="admin_page.php">Terminal</a>
 			  </li>
 			  <li class="nav-item">
-				<a class="nav-link" href="filter.php">Filter Page</a>
+				<a class="nav-link" href="admin_student_list.php">Student List</a>
+			  </li>
+              <li class="nav-item">
+				<a class="nav-link" href="admin_company.php">Companies</a>
+			  </li>
+              <li class="nav-item">
+				<a class="nav-link" href="admin_roles.php">Roles</a>
+			  </li>
+              <li class="nav-item">
+				<a class="nav-link" href="logout_testing.php">Logout</a>
 			  </li>
 			</ul>
 	    </nav>
@@ -100,8 +109,5 @@ error_reporting(-1);
                 echo $output;
             ?>
         </div>
-        <a href="./admin_student_list.php"><button class="btn btn-primary">Student List</button></a>
-        <a href="./admin_company.php"><button class="btn btn-primary">Companies</button></a>
-        <a href="./admin_roles.php"><button class="btn btn-primary">Roles</button></a>
     </body>
 </html>
