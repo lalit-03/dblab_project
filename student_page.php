@@ -1,6 +1,6 @@
 <?php
 include "student_boiler.php";
-$stud = $conn->query("select * from student where username='".$_SESSION['username']."';");
+$stud = $conn->query("select * from Student where username='".$_SESSION['username']."';");
 if($stud->num_rows==0)die();
 $res = $stud->fetch_assoc();
 ?>

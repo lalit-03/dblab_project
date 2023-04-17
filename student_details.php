@@ -5,7 +5,7 @@ include "admin_boiler.php";
 
 $res=$conn->query("select * from Student where username='".htmlspecialchars($_GET['id'])."';");
 if($res->num_rows==0){
-    echo "No such student.";
+    echo "No such Student.";
     die();
 }
 $d1=$res->fetch_assoc();
