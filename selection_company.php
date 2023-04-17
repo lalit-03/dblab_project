@@ -7,58 +7,36 @@ error_reporting(-1);
         header("Location:login.php?message=".$message);
     }
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $host = 'localhost';
-        $username = 'test';
-        $password = 'test';
-        $database = 'dblab_project';
+    $host = 'localhost';
+    $username = 'test';
+    $password = 'test';
+    $database = 'dblab_project';
+
+    $conn = new mysqli($host, $username, $password, $database);
     
-        $conn = new mysqli($host, $username, $password, $database);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+        exit();
+    }
+    else {
         
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-            exit();
+        
+        $sql = "Select ";
+        if (mysqli_query($conn, $sql)) {
+            $message = "<div class='alert alert-info justify-content-center text-center'><strong>Offer Added!</strong></div>";
         }
         else {
-            $company_username = $_SESSION['username'];
-            $role = $_POST['role'];
-            $description = $_POST['description'];
-            $mincpi = $_POST['mincpi'];
-            $degree = $_POST['degree'];
-            $sector = $_POST['sector'];
-            $mode = $_POST['mode'];
-            $ctc = $_POST['ctc'];
-            $batch = $_POST['batch'];
-
-            echo $company_username;
-            echo $role;
-            echo $description;
-            echo $mincpi;
-            echo $degree;
-            echo $sector;
-            echo $mode;
-            echo $ctc;
-            echo $branch;
-            if(empty($company_username) || empty($role) || empty($description) || empty($mincpi) || empty($degree) || empty($sector) || empty($mode) || empty($ctc) || empty($batch)) {
-                $error="Please fill out all the required fields.<br>";
-            }
-            else {
-                $sql = "INSERT INTO database_projects.Roles (company_username, Role_Name, min_cpi, min_qualification, description, mode_of_interview, ctc, Sector, batch) values ('$company_username', '$role', $mincpi, '$degree', '$description', $mode, $ctc, '$sector', $batch)";
-                if (mysqli_query($conn, $sql)) {
-                    $message = "<div class='alert alert-info justify-content-center text-center'><strong>Offer Added!</strong></div>";
-                }
-                else {
-                    $error="Error: " . $sql . "<br>" . mysqli_error($conn);
-                }
-            }
+            $error="Error: " . $sql . "<br>" . mysqli_error($conn);
         }
-        $conn->close();
+        
     }
+    $conn->close();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Company Portal</title>
+	<title>Select Students</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="bootstrap-5.3.0-alpha2-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -66,16 +44,16 @@ error_reporting(-1);
 </head>
 <body style="background-color:powderblue;">
 	<div class="container-fluid p-5 bg-primary text-white text-center">
-		<h1 class="display-1">Create Offers</h1>
-		<p>Fill the form to create an offer for the students.</p>
+		<h1 class="display-1">Select Students</h1>
+		<p>Select students who applied for your offers.</p>
 	</div>
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark justify-content-center">
 			<ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="login.php">Create Offers</a>
+                    <a class="nav-link" href="login.php">Create Offers</a>
                 </li>
                 <li class="nav-item">
-                    <a class = "nav-link" href="selection_company.php">Select Students</a>
+                    <a class = "nav-link active" href="selection_company.php">Select Students</a>
                 </li>
                 <li class = "navbar-nav">
                     <a class="nav-link" href="edit_company.php">Edit Profile</a>
@@ -126,8 +104,8 @@ error_reporting(-1);
                 <div class="col">
                     <label for="mode" class="form-label">Mode of Interview:</label>
                     <select name="mode" id="mode" class="form-control form-control-md">
-                        <option value=0>Offline</option>
-                        <option value=1>Online</option>
+                        <option value=1>Offline</option>
+                        <option value=2>Online</option>
                     </select>
                 </div>
                 <div class="col">
