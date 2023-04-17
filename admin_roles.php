@@ -1,5 +1,6 @@
 <?php
 require_once "admin_boiler.php";
+ob_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,17 +11,17 @@ require_once "admin_boiler.php";
 	<link href="bootstrap-5.3.0-alpha2-dist/css/bootstrap.min.css" rel="stylesheet">    
 	<script src="bootstrap-5.3.0-alpha2-dist/js/bootstrap.bundle.min.js"></script>
 	<script>
-		function show_roles() {
-			var table = document.getElementById("table");
-			var button = document.getElementById("role_data");
-			if (table.style.display === "none") {
-				table.style.display = "table";
-				button.innerHTML = "Hide Table";
-			} else {
-				table.style.display = "none";
-				button.innerHTML = "Show Table";
-			}
-		}
+		// function show_roles() {
+		// 	var table = document.getElementById("table");
+		// 	var button = document.getElementById("role_data");
+		// 	if (table.style.display === "none") {
+		// 		table.style.display = "table";
+		// 		button.innerHTML = "Hide Table";
+		// 	} else {
+		// 		table.style.display = "none";
+		// 		button.innerHTML = "Show Table";
+		// 	}
+		// }
 
         function confirmDelete() {
 			return confirm("Are you sure you want to delete this Role? All Roles and Offers will also be deleted along with it.");
@@ -59,12 +60,11 @@ require_once "admin_boiler.php";
 			form.style.display = "block";
 		}
 
-        function hideEditForm(id) {
-			console.log("heree");
-			var form = document.getElementById("edit_form");
-			var roleRow = document.getElementById("role_" + id);
+        function hideEditForm() {
+			var form = document.getElementById("temp");
+			// var roleRow = document.getElementById("role_" + id);
 			form.style.display = "none";
-			roleRow.style.display = "table-row";
+			// roleRow.style.display = "table-row";
 		}
 	</script>
 </head>
@@ -94,10 +94,10 @@ require_once "admin_boiler.php";
 	</div>
 	<br>
 	<div class="container mt-3">
-	<div class="row gy-6">
-		<button id="role_data" onclick="show_roles()" class="btn btn-danger btn-large justify-content-center">Show Table</button>
-	</div>
-	<br>
+	<!-- <div class="row gy-6">
+		<button id="role_data" onclick="show_roles()" class="btn btn-danger btn-large justify-content-center">Show Roles</button>
+	</div> -->
+	<!-- <br> -->
 	
 	<table class='table table-dark table-stripe table-hover' id="table">
 		<tr>
@@ -107,12 +107,12 @@ require_once "admin_boiler.php";
 			<th>Min CPI</th>
 			<th>Min Qualification</th>
 			<th>Role Description</th>
-            <th>Mode of Interview</th>
+            <th>Mode of Interview </th>
             <th>CTC</th>
             <th>Sector</th>
             <th>Eligible Batches</th>
-			<th>Edit?</th>
-			<th>Delete?</th>
+			<th>Edit</th>
+			<th>Delete</th>
 		</tr>
 		<?php
             $sql = "SELECT * FROM Roles ORDER BY `company_username`";
@@ -140,6 +140,7 @@ require_once "admin_boiler.php";
                 $del_role = "DELETE FROM `Roles` WHERE `role_id` = '$id'";
 				if ($conn->query($del_role) === TRUE) {
 				    header("Location: ".$_SERVER['PHP_SELF']);
+					ob_end_flush();
 				} else {
 				    echo "Error deleting record: " . $conn->error;
 				}
@@ -162,11 +163,11 @@ require_once "admin_boiler.php";
                                 `batch` = '$role_batch' WHERE `role_id` = '$id'";
 				if ($conn->query($update_role) === TRUE) {
 				    header("Location: ".$_SERVER['PHP_SELF']);
+					ob_end_flush();
 				} else {
 				    echo "Error deleting record: " . $conn->error;
 				}
 			}			
-
 			?>
 	<div class='container text-white' id='temp' style='display:none'>
     <form method='POST' id='edit_form' action=''>
@@ -196,7 +197,7 @@ require_once "admin_boiler.php";
             <input type='text' class='form-control' name='new_role_desc'>
         </div>
         <div class='form-group'>
-            <label>Mode Of Interview:</label>
+            <label>Mode Of Interview(0:Offline, 1:Online):</label>
             <input type='text' class='form-control' name='new_role_interview'>
         </div>
         <div class='form-group'>

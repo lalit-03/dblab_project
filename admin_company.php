@@ -1,5 +1,6 @@
 <?php
 require_once "admin_boiler.php";
+ob_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,17 +11,17 @@ require_once "admin_boiler.php";
 	<link href="bootstrap-5.3.0-alpha2-dist/css/bootstrap.min.css" rel="stylesheet">    
 	<script src="bootstrap-5.3.0-alpha2-dist/js/bootstrap.bundle.min.js"></script>
 	<script>
-		function show_company() {
-			var table = document.getElementById("table");
-			var button = document.getElementById("tcompany_data");
-			if (table.style.display === "none") {
-				table.style.display = "table";
-				button.innerHTML = "Hide Table";
-			} else {
-				table.style.display = "none";
-				button.innerHTML = "Show Table";
-			}
-		}
+		// function show_company() {
+		// 	var table = document.getElementById("table");
+		// 	var button = document.getElementById("tcompany_data");
+		// 	if (table.style.display === "none") {
+		// 		table.style.display = "table";
+		// 		button.innerHTML = "Hide Table";
+		// 	} else {
+		// 		table.style.display = "none";
+		// 		button.innerHTML = "Show Table";
+		// 	}
+		// }
 
         function confirmDelete() {
 			return confirm("Are you sure you want to delete this company? All Roles and Offers will also be deleted along with it.");
@@ -47,11 +48,11 @@ require_once "admin_boiler.php";
 			form.style.display = "block";
 		}
 
-        function hideEditForm(id) {
-			var form = document.getElementById("edit_form");
-			var companyRow = document.getElementById("company_" + id);
+        function hideEditForm() {
+			var form = document.getElementById("temp");
+			// var companyRow = document.getElementById("company_" + id);
 			form.style.display = "none";
-			companyRow.style.display = "table-row";
+			// companyRow.style.display = "table-row";
 		}
 	</script>
 </head>
@@ -81,10 +82,10 @@ require_once "admin_boiler.php";
 	</div>
 	<br>
 	<div class="container mt-3">
-		<div class="row gy-6">
+		<!-- <div class="row gy-6">
 			<button id="company_data" onclick="show_company()" type="submit" class="btn btn-danger btn-large justify-content-center">Show Table</button>
 		</div>
-		<br>
+		<br> -->
 	<!-- <button id="company_data" onclick="show_company()">Show Table</button> -->
 	
 	<table class='table table-dark table-stripe table-hover' id="table">
@@ -94,8 +95,8 @@ require_once "admin_boiler.php";
 			<th>E-Mail</th>
 			<th>Hiring Since</th>
 			<th>Password</th>
-			<th>Edit?</th>
-			<th>Delete?</th>
+			<th>Edit</th>
+			<th>Delete</th>
 		</tr>
 		<?php
             $sql = "SELECT * FROM Company";
@@ -128,6 +129,7 @@ require_once "admin_boiler.php";
 				$sql = "DELETE FROM `Company` WHERE `company_username` = '$id'";
 				if ($conn->query($sql) === TRUE) {
 				    header("Location: ".$_SERVER['PHP_SELF']);
+					ob_end_flush();
 				} else {
 				    echo "Error deleting record: " . $conn->error;
 				}
@@ -142,30 +144,39 @@ require_once "admin_boiler.php";
 				$update_company = "UPDATE `Company` set `company_name` = '$company_name', `company_email` = '$company_email', `hiring_since_when` = '$hiring_since_when', `password` = '$password' WHERE `company_username` = '$id'";
 				if ($conn->query($update_company) === TRUE) {
 				    header("Location: ".$_SERVER['PHP_SELF']);
+					ob_end_flush();
 				} else {
 				    echo "Error deleting record: " . $conn->error;
 				}
 			}			
-
 			?>
 			<div class='container text-white' id = 'temp' style = 'display:none'>
             <form method="POST" id = 'edit_form' action = ''>
-				<h3>Edit Company: <span id = 'show_username'></span></h3>
-				<input type="hidden" name="company_username"/>
-				<label>Name:</label> &emsp;
-				<input type="text" name="new_company_name"><br>
-				<label>E-mail:</label> &emsp;
-				<input type="text" name="new_company_email"><br>
-				<label>Hiring Since When:</label> &emsp;
-				<input type="text" name="new_company_hiring_since_when"><br>
-				<label>Password</label> &emsp;
-				<input type="text" name="new_password"><br>
-				<input type="submit" name="update" value="update">
-				<button onclick="hideEditForm()">Cancel</button>
+				<h3>Edit Company:</h3>
+				<div class='form-group'>
+					<label> Company Username: </label> <span id='show_username' class='text-white'></span> 
+					<input type='hidden' class='form-control' name='company_username'/>
+				</div>
+				<div class='form-group'>
+					<label>Name:</label>
+					<input type="text" class='form-control' name="new_company_name">
+				</div>
+				<div class='form-group'>
+					<label>E-mail:</label>
+					<input type="text" class='form-control' name="new_company_email">
+				</div>
+				<div class='form-group'>
+					<label>Hiring Since When:</label>
+					<input type="text" class='form-control' name="new_company_hiring_since_when">
+				</div>
+				<div class='form-group'>
+					<label>Password</label>
+					<input type="text" class='form-control' name="new_password"><br>
+				</div>
+				<button type='submit' class='btn btn-primary' name='update'>Update</button>
+				<button type='button' class='btn btn-secondary' onclick='hideEditForm()'>Cancel</button><br>
             </form>
 			</div>
-
-
 	</table>
 	</div>
 </body>
