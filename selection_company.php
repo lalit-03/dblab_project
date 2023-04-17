@@ -38,12 +38,12 @@ error_reporting(-1);
             echo $sector;
             echo $mode;
             echo $ctc;
-            echo $batch;
+            echo $branch;
             if(empty($company_username) || empty($role) || empty($description) || empty($mincpi) || empty($degree) || empty($sector) || empty($mode) || empty($ctc) || empty($batch)) {
                 $error="Please fill out all the required fields.<br>";
             }
             else {
-                $sql = "INSERT INTO dblab_project.Roles (company_username, Role_Name, min_cpi, min_qualification, description, mode_of_interview, ctc, Sector, batch) values ('$company_username', '$role', $mincpi, '$degree', '$description', $mode, $ctc, '$sector', $batch)";
+                $sql = "INSERT INTO database_projects.Roles (company_username, Role_Name, min_cpi, min_qualification, description, mode_of_interview, ctc, Sector, batch) values ('$company_username', '$role', $mincpi, '$degree', '$description', $mode, $ctc, '$sector', $batch)";
                 if (mysqli_query($conn, $sql)) {
                     $message = "<div class='alert alert-info justify-content-center text-center'><strong>Offer Added!</strong></div>";
                 }
@@ -126,8 +126,8 @@ error_reporting(-1);
                 <div class="col">
                     <label for="mode" class="form-label">Mode of Interview:</label>
                     <select name="mode" id="mode" class="form-control form-control-md">
-                        <option value=1>Offline</option>
-                        <option value=2>Online</option>
+                        <option value=0>Offline</option>
+                        <option value=1>Online</option>
                     </select>
                 </div>
                 <div class="col">
