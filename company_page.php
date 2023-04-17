@@ -30,15 +30,15 @@ error_reporting(-1);
             $ctc = $_POST['ctc'];
             $batch = $_POST['batch'];
 
-            echo $company_username;
-            echo $role;
-            echo $description;
-            echo $mincpi;
-            echo $degree;
-            echo $sector;
-            echo $mode;
-            echo $ctc;
-            echo $batch;
+            // echo $company_username;
+            // echo $role;
+            // echo $description;
+            // echo $mincpi;
+            // echo $degree;
+            // echo $sector;
+            // echo $mode;
+            // echo $ctc;
+            // echo $batch;
             if(empty($company_username) || empty($role) || empty($description) || empty($mincpi) || empty($degree) || empty($sector) || empty($mode) || empty($ctc) || empty($batch)) {
                 $error="Please fill out all the required fields.<br>";
             }
@@ -72,7 +72,7 @@ error_reporting(-1);
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark justify-content-center">
 			<ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="login.php">Create Offers</a>
+                    <a class="nav-link active" href="company_page.php">Create Offers</a>
                 </li>
                 <li class="nav-item">
                     <a class = "nav-link" href="selection_company.php">Select Students</a>

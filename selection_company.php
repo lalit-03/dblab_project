@@ -18,15 +18,47 @@ error_reporting(-1);
         die("Connection failed: " . $conn->connect_error);
         exit();
     }
-    else {
-        
-        
-        $sql = "Select ";
-        if (mysqli_query($conn, $sql)) {
-            $message = "<div class='alert alert-info justify-content-center text-center'><strong>Offer Added!</strong></div>";
+    elseif (isset($_POST['offer_ids'])) {
+        $offer_ids = $_POST['offer_ids'];
+        foreach ($offer_ids as $offer_id) {
+            $sql = "UPDATE Offers SET selected=1 WHERE id=".$offer_id;
+            if ($conn->query($sql) != TRUE) {
+                $output = "<div class='alert alert-danger'>Error executing SQL query: " . $conn->error . "</div>" . $conn->error;
+            }
         }
-        else {
-            $error="Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+    else {
+        $output = "";
+        $elig = 0;
+        $sql = "SELECT id AS offer_id, role_id, student_name, marks_10, marks_12, DoB, RollNumber 
+            FROM Student 
+            NATURAL JOIN Offers 
+            WHERE Offers.selected = 0";
+        if ($result = $conn->query($sql)) {
+            $output .= "<form method='POST' action='selection_company.php'>";
+            $output .= "<table class='table'>";
+            $output .= "<thead><tr>";
+            $output .= "<th>Select</th>";
+            $elig = $result->num_rows;
+            while ($field = $result->fetch_field()) {
+                $output .= "<th>" . $field->name . "</th>";
+            }
+            $output .= "</tr></thead>";
+
+            $output .= "<tbody>";
+            while ($row = $result->fetch_assoc()) {
+                $output .= "<tr>";
+                $output .= "<td><input type='checkbox' name='offer_ids[]' value='" . $row['offer_id'] . "'></td>";
+                foreach ($row as $key => $value) {
+                    $output .= "<td>" . $value . "</td>";
+                }
+                $output .= "</tr>";
+            }
+            $output .= "</tbody></table>";
+            $output .= "<button type='submit' class='btn btn-primary'>Submit</button>";
+            $output .= "</form>";
+        } else {
+            $output .= "<div class='alert alert-danger'>Error executing SQL query: " . $conn->error . "</div>";
         }
         
     }
@@ -50,7 +82,7 @@ error_reporting(-1);
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark justify-content-center">
 			<ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="login.php">Create Offers</a>
+                    <a class="nav-link" href="company_page.php">Create Offers</a>
                 </li>
                 <li class="nav-item">
                     <a class = "nav-link active" href="selection_company.php">Select Students</a>
@@ -66,62 +98,15 @@ error_reporting(-1);
             }
     ?>
     <div class="container mt-3">
-		<form action="company_page.php" method="post">
-			<div class="row gy-6">
-                <label for="role" class="form-label">Role Title:</label>
-                <input class="form-control form-control-lg" type="text" name="role" required placeholder="Role Title">
-			</div>
-            <br>
-            <div class="row gy-6">
-                <label for="description" class="form-label">Brief Role Description (255 characters):</label>
-                <textarea class="form-control" id="description" name="description" rows="3" style="border: 2px; border-radius: 6px;"></textarea>
-            </div>
-            <br>
-			<div class="row gy-6">
-                <div class="col">
-                    <label for="mincpi" class="form-label">Minimum CPI:</label>
-                    <input class="form-control form-control-md" type="number" step="0.01" name="mincpi" required placeholder="eg.- 7.50">
-                </div>
-                <div class="col">
-                    <label for="degree" class="form-label">Qualification:</label>
-                    <select name="degree" id="degree" class="form-control form-control-sm">
-                        <option value="BTech/BSc">BTech. / BSc.</option>
-                        <option value="MTech/MSc">MTech. /MSc.</option>
-                        <option value="PhD">PhD.</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <label for="batch" class="form-label">Batch:</label>
-                    <input class="form-control form-control-md" type="batch" step="1" name="batch" required placeholder="eg.- 2023">
-                </div>
-			</div>
-            <br>
-            <div class="row gy-6">
-                <div class="col">
-                    <label for="sector" class="form-label">Sector:</label>
-                    <input class="form-control form-control-md" type="text" name="sector" required placeholder="eg.- Finance">
-                </div>
-                <div class="col">
-                    <label for="mode" class="form-label">Mode of Interview:</label>
-                    <select name="mode" id="mode" class="form-control form-control-md">
-                        <option value=1>Offline</option>
-                        <option value=2>Online</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <label for="ctc" class="form-label">Offered CTC:</label>
-                    <input class="form-control form-control-md" type="number" step="10000" name="ctc" required placeholder="eg.- 1200000">
-                </div>
-			</div>
-            <br>
-			<div class="row gy-6">
-				<input type="submit" value="Register" class="btn btn-success btn-large justify-content-center">
-			</div>
-		</form>
-        <?php if (isset($error)): 
-            echo "<hr><div class='alert alert-danger justify-content-center'><strong>$error</strong></div>";    
+		
+        <?php 
+        if (isset($output) && $elig > 0){
+            echo $output;    
+        }
+        else {
+            echo "<div class='alert alert-info' style='text-align: center;'><strong>No students to chose from.<strong></div>            ";
+        }
         ?>
-        <?php endif; ?>
 	</div>
 </body>
 
