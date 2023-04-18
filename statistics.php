@@ -5,24 +5,24 @@ $password = "test";
 $database = "dblab_project";
 $mysqli = mysqli_connect($host, $username, $password, $database);
 
-$avg_ctc = mysqli_query($mysqli, "SELECT avg(ctc) as avg_ctc FROM student where ctc > 0");
+$avg_ctc = mysqli_query($mysqli, "SELECT avg(ctc) as avg_ctc FROM Student where ctc > 0");
 
-$batch_ctc = mysqli_query($mysqli, "SELECT Batch, avg(ctc) as batch_avg FROM student where ctc > 0 group by batch ORDER BY batch");
-$max_batch_ctc = mysqli_query($mysqli, "SELECT max(ctc) as max_ctc FROM student where ctc > 0 group by batch ORDER BY batch");
+$batch_ctc = mysqli_query($mysqli, "SELECT Batch, avg(ctc) as batch_avg FROM Student where ctc > 0 group by batch ORDER BY batch");
+$max_batch_ctc = mysqli_query($mysqli, "SELECT max(ctc) as max_ctc FROM Student where ctc > 0 group by batch ORDER BY batch");
 
-$total_cnt_batch = mysqli_query($mysqli, "SELECT count(ctc) as cnt_ctc FROM student group by batch");
-$cnt_batch = mysqli_query($mysqli, "SELECT count(ctc) as cnt_ctc FROM student where ctc > 0 group by batch");
+$total_cnt_batch = mysqli_query($mysqli, "SELECT count(ctc) as cnt_ctc FROM Student group by batch");
+$cnt_batch = mysqli_query($mysqli, "SELECT count(ctc) as cnt_ctc FROM Student where ctc > 0 group by batch");
 
-$branch_ctc = mysqli_query($mysqli, "SELECT branch, avg(ctc) as branch_avg FROM student where ctc > 0 group by branch");
-$max_branch_ctc = mysqli_query($mysqli, "SELECT max(ctc) as max_ctc FROM student where ctc > 0 group by branch");
+$branch_ctc = mysqli_query($mysqli, "SELECT branch, avg(ctc) as branch_avg FROM Student where ctc > 0 group by branch");
+$max_branch_ctc = mysqli_query($mysqli, "SELECT max(ctc) as max_ctc FROM Student where ctc > 0 group by branch");
 
-$company_ctc = mysqli_query($mysqli, "SELECT company_name, avg(ctc) as avg_ctc from Roles natural join company group by company_username ORDER BY company_username;");
+$company_ctc = mysqli_query($mysqli, "SELECT company_name, avg(ctc) as avg_ctc from Roles natural join Company group by company_username ORDER BY company_username;");
 $max_company_ctc = mysqli_query($mysqli, "SELECT max(ctc) as max_ctc from Roles group by company_username ORDER BY company_username");
 
-$company_selected = mysqli_query($mysqli, "SELECT company_username, count(selected) as selected from offers natural join roles where selected = '1' group by company_username");
-$company_names = mysqli_query($mysqli, "SELECT company_username, company_name from company");
+$company_selected = mysqli_query($mysqli, "SELECT company_username, count(selected) as selected from Offers natural join Roles where selected = '1' group by company_username");
+$company_names = mysqli_query($mysqli, "SELECT company_username, company_name from Company");
 
-$roles_sector = mysqli_query($mysqli, "SELECT sector, count(role_id) as cnt from roles group by sector");
+$roles_sector = mysqli_query($mysqli, "SELECT sector, count(role_id) as cnt from Roles group by sector");
 ?>
 
 <script>
@@ -32,7 +32,7 @@ while($info=mysqli_fetch_array($company_selected))
 ?>];
 
 <?php
-$company_selected = mysqli_query($mysqli, "SELECT company_username, count(selected) as selected from offers natural join roles where selected = '1' group by company_username");
+$company_selected = mysqli_query($mysqli, "SELECT company_username, count(selected) as selected from offers natural join Roles where selected = '1' group by company_username");
 ?>
 
 var myLabels_6=[<?php
@@ -46,7 +46,7 @@ while($info=mysqli_fetch_array($company_names))
 ?>];
 
 <?php
-$company_names = mysqli_query($mysqli, "SELECT company_username, company_name from company");
+$company_names = mysqli_query($mysqli, "SELECT company_username, company_name from Company");
 ?>
 
 var comp_names = [<?php
@@ -77,7 +77,7 @@ while($info=mysqli_fetch_array($total_cnt_batch))
 ?>];
 
 <?php
-$total_cnt_batch = mysqli_query($mysqli, "SELECT Batch, count(ctc) as cnt_ctc FROM student group by batch");
+$total_cnt_batch = mysqli_query($mysqli, "SELECT Batch, count(ctc) as cnt_ctc FROM Student group by batch");
 ?>
 
 var myLabels_4=[<?php
@@ -102,7 +102,7 @@ while($info=mysqli_fetch_array($max_batch_ctc))
 ?>];
 
 <?php
-$batch_ctc = mysqli_query($mysqli, "SELECT Batch, avg(ctc) as batch_avg FROM student where ctc > 0 group by batch");
+$batch_ctc = mysqli_query($mysqli, "SELECT Batch, avg(ctc) as batch_avg FROM Student where ctc > 0 group by batch");
 ?>
 
 var myLabels_1=[<?php
@@ -122,7 +122,7 @@ while($info=mysqli_fetch_array($max_company_ctc))
 ?>];
 
 <?php
-$company_ctc = mysqli_query($mysqli, "SELECT company_name, avg(ctc) as avg_ctc from Roles natural join company group by company_username ORDER BY company_username");
+$company_ctc = mysqli_query($mysqli, "SELECT company_name, avg(ctc) as avg_ctc from Roles natural join Company group by company_username ORDER BY company_username");
 ?>
 
 var myLabels_5=[<?php
@@ -139,7 +139,7 @@ while($info=mysqli_fetch_array($roles_sector))
 ?>];
 
 <?php
-$roles_sector = mysqli_query($mysqli, "SELECT sector, count(role_id) as cnt from roles group by sector");
+$roles_sector = mysqli_query($mysqli, "SELECT sector, count(role_id) as cnt from Roles group by sector");
 ?>
 
 var myLabels_3=[<?php
@@ -162,7 +162,7 @@ for(let i=0;i<myLabels_3.length;i++){
 
 <script>
 <?php
-$avg_ctc = mysqli_query($mysqli, "SELECT avg(ctc) as avg_ctc FROM student where ctc > 0");
+$avg_ctc = mysqli_query($mysqli, "SELECT avg(ctc) as avg_ctc FROM Student where ctc > 0");
 ?>
 
 var myData_2_1=[<?php
@@ -178,7 +178,7 @@ while($info=mysqli_fetch_array($max_branch_ctc))
 ?>];
 
 <?php
-$branch_ctc = mysqli_query($mysqli, "SELECT branch, avg(ctc) as branch_avg FROM student where ctc > 0 group by branch");
+$branch_ctc = mysqli_query($mysqli, "SELECT branch, avg(ctc) as branch_avg FROM Student where ctc > 0 group by branch");
 ?>
 
 var myLabels_2=[<?php
