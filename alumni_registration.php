@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 	<div class="container mt-3">
 	<h2>Add Alumni Record</h2>
-	<form method="post" action="student_registration.php">
+	<form method="post" action="alumni_registration.php">
 		<div class="row gy-6">
 			<div class = "col">
 				<label for="username" class="form-label">Username:</label>

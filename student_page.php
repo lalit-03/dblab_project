@@ -22,8 +22,8 @@ $sem5_spi = $res['sem5_spi'];
 $sem6_spi = $res['sem6_spi'];
 $sem7_spi = $res['sem7_spi'];
 $sem8_spi = $res['sem8_spi'];
-// $placed_company = $res['placed_company'];
-// $ctc = $res['ctc'];
+$placed_company = $res['placed_company'];
+$ctc = $res['ctc'];
 // $password = $res['password'];
 
 ?>
@@ -96,6 +96,8 @@ $sem8_spi = $res['sem8_spi'];
 						<h5><strong>Semester 6 SPI: </strong><?php echo $sem6_spi; ?></h5>
 						<h5><strong>Semester 7 SPI: </strong><?php echo $sem7_spi; ?></h5>
 						<h5><strong>Semester 8 SPI: </strong><?php echo $sem8_spi; ?></h5>
+						<h5><strong>Placed Company: </strong><?php echo $placed_company; ?></h5>
+						<h5><strong>CTC: </strong><?php echo $ctc; ?></h5>
 					</div>
 				</div>
 			</div>
