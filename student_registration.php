@@ -37,6 +37,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$sem7spi = $_POST["sem7spi"];
 		$sem8spi = $_POST["sem8spi"];
 
+		if (empty($sem1spi)) {
+			$sem1spi = 0.0;
+		}
+		if (empty($sem2spi)) {
+			$sem2spi = 0.0;
+		}
+		if (empty($sem3spi)) {
+			$sem3spi = 0.0;
+		}
+		if (empty($sem4spi)) {
+			$sem4spi = 0.0;
+		}
+		if (empty($sem5spi)) {
+			$sem5spi = 0.0;
+		}
+		if (empty($sem6spi)) {
+			$sem6spi = 0.0;
+		}
+		if (empty($sem7spi)) {
+			$sem7spi = 0.0;
+		}
+		if (empty($sem8spi)) {
+			$sem8spi = 0.0;
+		}
+
 		// echo $username . "<br>";
 		// echo $rollno . "<br>";
 		// echo $password . "<br>";
@@ -60,9 +85,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// echo $sem8spi . "<br>";
 
         $user_query = "SELECT username FROM dblab_project.Student WHERE username='$username'";
+        $roll_query = "SELECT RollNumber FROM dblab_project.Student WHERE RollNumber='$rollno'";
         $result = mysqli_query($conn, $user_query);
+		$result2 = mysqli_query($conn, $roll_query);
         $count = mysqli_num_rows($result);
-        if($count == 0) {
+		$count2 = mysqli_num_rows($result2);
+        if($count == 0 and $count2 == 0) {
             if (empty($username) || empty($rollno) || empty($password) || empty($confirm_password) || empty($name) || empty($email) || empty($phone) || empty($dob) || empty($batch) || empty($degree) || empty($branch) || empty($marks10) || empty($marks12)) {
                 $error="Please fill out all the required fields.<br>";
             } elseif ($password != $confirm_password) {
@@ -86,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         else {
-            $error="Username has been taken, try another.<br>";
+            $error="Username has been taken, try another. OR The Roll Number has been registered.<br>";
         }
 		
     }
@@ -128,6 +156,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	</nav>
 <body>
 	<div class="container mt-3">
+	<?php
+		if(isset($error)) {
+			echo "<div class='alert alert-danger' style='text-align:center; font-weight:bold;'>$error</div>";
+		}
+	?>
 	<h2>Add Student Record</h2>
 	<form method="post" action="student_registration.php">
 		<div class="row gy-6">
