@@ -13,7 +13,6 @@ error_reporting(-1);
     $database = 'dblab_project';
 
     $conn = new mysqli($host, $username, $password, $database);
-    
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
         exit();
@@ -21,8 +20,28 @@ error_reporting(-1);
     elseif (isset($_POST['offer_ids'])) {
         $offer_ids = $_POST['offer_ids'];
         foreach ($offer_ids as $offer_id) {
-            $sql = "UPDATE Offers SET selected=1 WHERE id=".$offer_id;
+            $sql = "UPDATE Offers SET selected = 1 WHERE id = $offer_id";
+            $sql2 = "SET FOREIGN_KEY_CHECKS=0;";
+            $sql3 = "UPDATE Student SET placed_company = (Select distinct company_name from Company where company_username in (Select company_username from Roles where role_id in (Select role_id from Offers where id = $offer_id))) WHERE username IN (SELECT username FROM Offers WHERE id = $offer_id);";
+            $sql4 = "UPDATE Student SET ctc = (SELECT ctc FROM Roles WHERE role_id IN (SELECT role_id FROM Offers WHERE id = $offer_id)) WHERE username IN (SELECT username FROM Offers WHERE id = $offer_id);";
+            $sql5 = "DELETE FROM Roles WHERE role_id IN (SELECT role_id FROM Offers WHERE id = $offer_id);";
+            $sql6 = "SET FOREIGN_KEY_CHECKS=1;";
             if ($conn->query($sql) != TRUE) {
+                $output = "<div class='alert alert-danger'>Error executing SQL query: " . $conn->error . "</div>" . $conn->error;
+            }
+            if ($conn->query($sql2) != TRUE) {
+                $output = "<div class='alert alert-danger'>Error executing SQL query: " . $conn->error . "</div>" . $conn->error;
+            }
+            if ($conn->query($sql3) != TRUE) {
+                $output = "<div class='alert alert-danger'>Error executing SQL query: " . $conn->error . "</div>" . $conn->error;
+            }
+            if ($conn->query($sql4) != TRUE) {
+                $output = "<div class='alert alert-danger'>Error executing SQL query: " . $conn->error . "</div>" . $conn->error;
+            }
+            if ($conn->query($sql5) != TRUE) {
+                $output = "<div class='alert alert-danger'>Error executing SQL query: " . $conn->error . "</div>" . $conn->error;
+            }
+            if ($conn->query($sql6) != TRUE) {
                 $output = "<div class='alert alert-danger'>Error executing SQL query: " . $conn->error . "</div>" . $conn->error;
             }
         }

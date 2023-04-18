@@ -19,7 +19,7 @@ foreach($_POST as $role => $val){
     }
     if($val=="Yes"){
         if($exists)continue;
-        else $conn->query("insert into Offers(username,role_id) values('".$_POST['id']."',".$r1.");");
+        else $conn->query("insert into Offers(username,role_id,selected) values('".$_POST['id']."',".$r1.", 0);");
     }else{
         if(!$exists)continue;
         else $conn->query("delete from Offers where username='".$_POST['id']. "' and role_id=".$r1.";");
