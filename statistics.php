@@ -148,14 +148,13 @@ while($info=mysqli_fetch_array($roles_sector))
 ?>];
 
 const seriesObj = [];  
-const months = ["blue purple", "orange red", "yellow red", "yellow green", "blue black"];
-const t_f = ['true', 'false'];
+const months = ["#2193b0 #6dd5ed", " #552586 #804FB3", "#f7797d #fbd786 #c6ffdd", "#ff0099 #493240", "#1f4037 #99f2c8", "#f12711 #f5af19"];
 for(let i=0;i<myLabels_3.length;i++){
     var obj1={};
     obj1["values"]=[myData_3[i]];
     obj1["text"]=myLabels_3[i];
     obj1["backgroundColor"]= months[i%months.length];
-    // obj1["detached"] = t_f[Math.floor(Math.random() * t_f.length)];
+    obj1["detached"] = 'true';
     seriesObj.push(obj1);
 }
 </script>
@@ -194,6 +193,7 @@ function toggleFirst(){
   hideId('myChart4');
   hideId('myChart5');
   hideId('myChart6');
+  zingchart.exec('myChart1', 'reload');
 }
 
 function toggleSecond(){
@@ -203,6 +203,7 @@ function toggleSecond(){
   hideId('myChart4');
   hideId('myChart5');
   hideId('myChart6');
+  zingchart.exec('myChart2', 'reload');
 }
 
 function toggleThird(){
@@ -212,6 +213,7 @@ function toggleThird(){
   hideId('myChart4');
   hideId('myChart5');
   hideId('myChart6');
+  zingchart.exec('myChart3', 'reload');
 }
 
 function toggleFourth(){
@@ -221,6 +223,7 @@ function toggleFourth(){
   hideId('myChart3');
   hideId('myChart5');
   hideId('myChart6');
+  zingchart.exec('myChart4', 'reload');
 }
 function toggleFifth(){
   toggleId("myChart5");
@@ -229,6 +232,7 @@ function toggleFifth(){
   hideId('myChart3');
   hideId('myChart4');
   hideId('myChart6');
+  zingchart.exec('myChart5', 'reload');
 }
 function toggleSixth(){
   toggleId("myChart6");
@@ -237,6 +241,7 @@ function toggleSixth(){
   hideId('myChart3');
   hideId('myChart4');
   hideId('myChart5');
+  zingchart.exec('myChart6', 'reload');
 }
 
 function hideId(id){
