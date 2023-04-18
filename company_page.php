@@ -86,6 +86,9 @@ error_reporting(-1);
                 <li class = "navbar-nav">
                     <a class="nav-link" href="logout_testing.php">Logout</a>
                 </li>
+                <li class="nav-item">
+				    <a class="nav-link" href="statistics.php">Placement Statistics</a>
+			    </li>
             </ul>
 	</nav>
     

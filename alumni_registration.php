@@ -125,6 +125,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			  <li class="nav-item active">
 				<a class="nav-link" href="alumni_registration.php">Alumni Registration</a>
 			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="statistics.php">Placement Statistics</a>
+			  </li>
 			</ul>
 	</nav>
 <body>

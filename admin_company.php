@@ -80,6 +80,9 @@ ob_start();
 				<li class="nav-item">
 					<a class="nav-link" href="logout_testing.php">Logout</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="statistics.php">Placement Statistics</a>
+			  	</li>
 				</ul>
 			</nav>
 	</div>
