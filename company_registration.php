@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } elseif (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])(?=.*[a-zA-Z]).{8,}$/", $password)) {
                 $error="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.<br>";
             } else {
-                $sql = "INSERT INTO dblab_project.Company VALUES ('$username', '$password', '$company_name', '$email', '$year')";
+                $sql = "INSERT INTO dblab_project.Company(company_username,password,company_name,company_email,hiring_since_when) VALUES ('$username', '$password', '$company_name', '$email', '$year')";
                 if (mysqli_query($conn, $sql)) {
                     $message=urlencode("Registration Successful!");
                     header("Location:login.php?message=".$message);
