@@ -25,4 +25,4 @@ foreach($_POST as $role => $val){
         else $conn->query("delete from Offers where username='".$_POST['id']. "' and role_id=".$r1.";");
     }
 }
-header("Location: ./student_role_applications.php?id=".$_POST['id']);
+//header("Location: ./student_role_applications.php?id=".$_POST['id']);

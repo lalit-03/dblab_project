@@ -11,33 +11,76 @@ $res = $stud->fetch_assoc();
 $cpi = $res["CPI"];
 $eligible = $conn->query("select company_name,role_id,Role_Name,min_cpi,description,mode_of_interview,ctc from Roles natural join Company where min_cpi<=".$cpi." and ctc>=".$res['ctc1']." order by ctc desc;");
 if($eligible->num_rows > 0){
-    while($row = $eligible->fetch_assoc()){
-        $ress1 = $conn->query("select count(*) as c from offers where username='".$_GET['id']. "' and role_id=".$row['role_id'].";");
-        $q1 = $ress1->fetch_assoc();
-        $exists = $q1['c'];
-        $output .= "<div class='something'><input type='hidden' name='role".$row['role_id']."'value='No'/><input type='checkbox' name='role".$row['role_id']."' ".($exists?"checked='checked'":"")." value='Yes'/> Company: ". $row['company_name']."</br> Role: ".$row['Role_Name']."</br>Description: ".$row['description']."</br>Mode of interview".($row['mode_of_interview']?"Online":"Offline")."</br> CTC: ".$row['ctc']."</div>";
-    }
+    $output = '';
+while ($row = $eligible->fetch_assoc()) {
+    $ress1 = $conn->query("select count(*) as c from Offers where username='" . $_GET['id'] . "' and role_id=" . $row['role_id'] . ";");
+    $q1 = $ress1->fetch_assoc();
+    $exists = $q1['c'];
+    $output .= "<div class='card'>
+                    <div class='card-body text-center'>
+                        <input type='hidden' name='role".$row['role_id']."' value='No'/>
+                        <input type='checkbox' name='role".$row['role_id']."' ".($exists?"checked='checked'":"")." value='Yes'/> 
+                        <h5 class='card-title'>Company: " . $row['company_name'] . "</h5>
+                        <h6 class='card-subtitle mb-2 text-muted'>Role: " . $row['Role_Name'] . "</h6>
+                        <p class='card-text'>Description: " . $row['description'] . "</p>
+                        <p class='card-text'>Mode of interview: " . ($row['mode_of_interview'] ? "Online" : "Offline") . "</p>
+                        <p class='card-text'>CTC: " . $row['ctc'] . "</p>
+                    </div>
+                </div><br>";
+}
 }else{
-    echo "No eligible roles right now.";
+    $output = "<div class='alert alert-danger text-center'><strong>No roles elligible</strong></div>";
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="bootstrap-5.3.0-alpha2-dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="bootstrap-5.3.0-alpha2-dist/js/bootstrap.bundle.min.js"></script>
     <title>Eligible Roles</title>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="bootstrap-5.3.0-alpha2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="bootstrap-5.3.0-alpha2-dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
+<body style="background-color:powderblue;">
+<div class="container-fluid p-5 bg-primary text-white text-center">
+        <h1>Elligible Roles</h1>
+        <p>Check and select roles you are elligible for.</p>
+    </div>
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark justify-content-center">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="student_page.php">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="student_passwd.php?id=<?php echo $_SESSION['username']?>">Change Password</a>
+                <!-- <a class="nav-link active" href="company_page.php">Create Offers</a> -->
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="student_role_applications.php?id=<?php echo $_SESSION['username'] ?>">Check Eligible Roles</a>
+                <!-- <a class="nav-link" href="company_roles.php">Previous Offers</a> -->
+            </li>
+            <li>
+                <a class="nav-link" href="logout_testing.php">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="statistics.php">Placement Statistics</a>
+                </li>
+        </ul>
+    </nav>
+    <div class="container mt-4">
+    <br>
+    <?php
+        if(isset($output))
+            echo $output;
+    ?>
+    <div class="row gy-6">
     <form action="./apply.php" method="POST">
         <input type='hidden' name='id' value='<?php echo $res['username']; ?>'/>
-        <?php echo $output;?>
-        <input type="submit"/>
+    <div class="row gy-6">
+        <input type="submit" value="OK" class="btn btn-primary btn-large justify-content-center">
+    </div>
     </form>
-    
+    </div>
+    </div>
 </body>
 </html>
