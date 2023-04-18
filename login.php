@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<link href="bootstrap-5.3.0-alpha2-dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="bootstrap-5.3.0-alpha2-dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body style="background-color:#42f5b0;"">
+<body style="background-color:#42f5b0;">
     <div class="container-fluid p-5 bg-success text-white text-center">
 		<h1 class="display-1">Login Portal</h1>
 		<p>Select your profile type and enter your username and password to login.</p>

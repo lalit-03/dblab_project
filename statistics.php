@@ -261,7 +261,7 @@ function toggleId(id){
   <script src="bootstrap-5.3.0-alpha2-dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
 </head>
-<body>
+<body style="background-color:#fbfbe4;">
     <div class="chart--main">
     <br>
     <div class="d-flex justify-content-center">
@@ -295,6 +295,10 @@ function toggleId(id){
     <script>
     let chart1_config = {
         type: 'bar',
+        backgroundColor:'transparent', // This is in the root
+        plotarea:{
+            backgroundColor:'transparent'
+        },
         title: {
             "text": "CTC Per Batch",
             "font-color": "#7E7E7E",
@@ -381,11 +385,16 @@ function toggleId(id){
             width: "50%",
             align: "centre",
             height: 400,
+            backgroundColor: 'transparent',
             data: chart1_config
         });
 
         let chart2_config = {
         type: 'bar',
+        backgroundColor:'transparent', // This is in the root
+        plotarea:{
+            backgroundColor:'transparent'
+        },
         title: {
             "text": "CTC Per Branch",
             "font-color": "#7E7E7E",
@@ -474,6 +483,10 @@ function toggleId(id){
         });
     let chart3_config = {
         type: 'pie',
+        backgroundColor:'transparent', // This is in the root
+        plotarea:{
+            backgroundColor:'transparent'
+        },
         title: {
             "text": "Roles Offered by Sector",
             "font-color": "#7E7E7E",
@@ -516,6 +529,10 @@ function toggleId(id){
 
     let chart4_config = {
         type: 'bar',
+        backgroundColor:'transparent', // This is in the root
+        plotarea:{
+            backgroundColor:'transparent'
+        },
         title: {
             "text": "Placement Percentage",
             "font-color": "#7E7E7E",
@@ -574,6 +591,10 @@ function toggleId(id){
         });
     let chart5_config = {
         type: 'bar',
+        backgroundColor:'transparent', // This is in the root
+        plotarea:{
+            backgroundColor:'transparent'
+        },
         title: {
             "text": "Company-Wise CTC",
             "font-color": "#7E7E7E",
@@ -662,6 +683,10 @@ function toggleId(id){
         });
     let chart6_config = {
         type: 'bar',
+        backgroundColor:'transparent', // This is in the root
+        plotarea:{
+            backgroundColor:'transparent'
+        },
         title: {
             "text": "Company Selection Stats",
             "font-color": "#7E7E7E",
