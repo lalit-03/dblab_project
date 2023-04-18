@@ -24,6 +24,7 @@ error_reporting(-1);
             if ($result = $conn->query($query)) {
                 if ($result->num_rows > 0) {
                     $output = "";
+                    $output .= "<div class='table-responsive' style='overflow-y: scroll; scroll-behavior: smooth;'>";
                     $output .= '<table class="table table-dark table-striped">';
                     $output .= '<thead><tr>';
                     while ($field = $result->fetch_field()) {
@@ -38,7 +39,7 @@ error_reporting(-1);
                         }
                         $output .= '</tr>';
                     }
-                    $output .= '</tbody></table>';
+                    $output .= '</tbody></table></div>';
                 } else {
                     $output = "";
                     $output .= '<div class="alert alert-info">Query executed successfully but no rows returned.</div>';

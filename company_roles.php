@@ -1,5 +1,5 @@
 <?php
-require_once "admin_boiler.php";
+require_once "company_boiler.php";
 ob_start();
 ?>
 <!DOCTYPE html>
@@ -68,30 +68,30 @@ ob_start();
 		}
 	</script>
 </head>
-<body style="background-color:#000000;">
-	<div class="container-fluid p-5 bg-dark text-white text-center border">
-				<h1 class="display-1">Roles List</h1>
-				<p>Analyse, Edit, Delete Roles Records.</p>
-				<nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
-				<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="admin_page.php">Terminal</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="admin_student_list.php">Student List</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="admin_company.php">Companies</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="admin_roles.php">Roles</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="logout_testing.php">Logout</a>
-				</li>
-				</ul>
-			</nav>
+<body style="background-color:powderblue;">
+<div class="container-fluid p-5 bg-primary text-white text-center">
+		<h1 class="display-1">Previous Offers</h1>
+		<p>Edit or delete the previous offers created.</p>
 	</div>
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark justify-content-center">
+			<ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="company_page.php">Create Offers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="company_roles.php">Previous Offers</a>
+                </li>
+                <li class="nav-item">
+                    <a class = "nav-link" href="selection_company.php">Select Students</a>
+                </li>
+                <li class = "navbar-nav">
+                    <a class="nav-link" href="edit_company.php">Edit Profile</a>
+                </li>
+                <li class = "navbar-nav">
+                    <a class="nav-link" href="logout_testing.php">Logout</a>
+                </li>
+            </ul>
+	</nav>
 	<br>
 	<div class="container mt-3">
 	<!-- <div class="row gy-6">
@@ -99,7 +99,7 @@ ob_start();
 	</div> -->
 	<!-- <br> -->
 	
-	<table class='table table-dark table-stripe table-hover' id="table">
+	<table class='table table-striped table-hover' id="table">
 		<tr>
 			<th>ID</th>
 			<th>Company</th>
@@ -115,7 +115,8 @@ ob_start();
 			<th>Delete</th>
 		</tr>
 		<?php
-            $sql = "SELECT * FROM Roles ORDER BY `company_username`";
+            $usr = $_SESSION['username'];
+            $sql = "SELECT * FROM Roles where company_username='$usr'";
             $result = $conn->query($sql);
             
             if ($result->num_rows > 0) {
@@ -123,8 +124,8 @@ ob_start();
                 while($row = $result->fetch_assoc()) {
                     echo "<tr id='role_" . $row["role_id"] . "'><td>" . $row["role_id"]. "</td><td>" . $row["company_username"]. "</td><td>" . $row["Role_Name"]. "</td><td>" . $row["min_cpi"]. "</td><td>" . $row["min_qualification"]. "</td>
                         <td>" . $row["description"]. "</td><td>" . $row["mode_of_interview"]. "</td><td>" . $row["ctc"]. "</td><td>" . $row["Sector"]. "</td><td>" . $row["batch"]. "</td>
-                        <td><button class='btn btn-outline-warning' onclick=showEditForm('" . $row["role_id"] . "')>Edit</button></td>
-                        <td><form action='' method='POST' onsubmit='return confirmDelete()'><input type='hidden' name='role_id' value='" . $row['role_id'] . "'/><button class='btn btn-outline-danger' type='submit' name='delete'>Delete</button></form></td></tr>";
+                        <td><button class='btn btn-warning' onclick=showEditForm('" . $row["role_id"] . "')>Edit</button></td>
+                        <td><form action='' method='POST' onsubmit='return confirmDelete()'><input type='hidden' name='role_id' value='" . $row['role_id'] . "'/><button class='btn btn-danger' type='submit' name='delete'>Delete</button></form></td></tr>";
                 }
             } else {
                 echo "0 results";

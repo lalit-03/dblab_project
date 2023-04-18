@@ -75,10 +75,16 @@ error_reporting(-1);
                     <a class="nav-link active" href="company_page.php">Create Offers</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="company_roles.php">Previous Offers</a>
+                </li>
+                <li class="nav-item">
                     <a class = "nav-link" href="selection_company.php">Select Students</a>
                 </li>
                 <li class = "navbar-nav">
                     <a class="nav-link" href="edit_company.php">Edit Profile</a>
+                </li>
+                <li class = "navbar-nav">
+                    <a class="nav-link" href="logout_testing.php">Logout</a>
                 </li>
             </ul>
 	</nav>
