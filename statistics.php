@@ -10,17 +10,20 @@ $avg_ctc = mysqli_query($mysqli, "SELECT avg(ctc) as avg_ctc FROM Student where 
 $batch_ctc = mysqli_query($mysqli, "SELECT Batch, avg(ctc) as batch_avg FROM Student where ctc > 0 group by batch ORDER BY batch");
 $max_batch_ctc = mysqli_query($mysqli, "SELECT max(ctc) as max_ctc FROM Student where ctc > 0 group by batch ORDER BY batch");
 
-$total_cnt_batch = mysqli_query($mysqli, "SELECT count(ctc) as cnt_ctc FROM Student group by batch");
-$cnt_batch = mysqli_query($mysqli, "SELECT count(ctc) as cnt_ctc FROM Student where ctc > 0 group by batch");
+$total_cnt_batch = mysqli_query($mysqli, "SELECT count(ctc) as cnt_ctc FROM Student group by batch order by batch");
+$cnt_batch = mysqli_query($mysqli, "SELECT count(ctc) as cnt_ctc FROM Student where ctc > 0 group by batch order by batch");
 
-$branch_ctc = mysqli_query($mysqli, "SELECT branch, avg(ctc) as branch_avg FROM Student where ctc > 0 group by branch");
-$max_branch_ctc = mysqli_query($mysqli, "SELECT max(ctc) as max_ctc FROM Student where ctc > 0 group by branch");
+$branch_ctc = mysqli_query($mysqli, "SELECT branch, avg(ctc) as branch_avg FROM Student where ctc > 0 group by branch order by branch");
+$max_branch_ctc = mysqli_query($mysqli, "SELECT max(ctc) as max_ctc FROM Student where ctc > 0 group by branch order by branch");
 
 $company_ctc = mysqli_query($mysqli, "SELECT company_name, avg(ctc) as avg_ctc from Roles natural join Company group by company_username ORDER BY company_username;");
 $max_company_ctc = mysqli_query($mysqli, "SELECT max(ctc) as max_ctc from Roles group by company_username ORDER BY company_username");
 
 $company_selected = mysqli_query($mysqli, "SELECT company_username, count(selected) as selected from Offers natural join Roles where selected = '1' group by company_username");
 $company_names = mysqli_query($mysqli, "SELECT company_username, company_name from Company");
+
+$total_cnt_branch = mysqli_query($mysqli, "SELECT branch, count(ctc) as cnt_ctc from student group by branch order by branch");
+$cnt_branch = mysqli_query($mysqli, "SELECT count(ctc) as cnt_ctc FROM Student where ctc > 0 group by branch order by branch");
 
 $roles_sector = mysqli_query($mysqli, "SELECT sector, count(role_id) as cnt from Roles group by sector");
 ?>
@@ -77,7 +80,7 @@ while($info=mysqli_fetch_array($total_cnt_batch))
 ?>];
 
 <?php
-$total_cnt_batch = mysqli_query($mysqli, "SELECT Batch, count(ctc) as cnt_ctc FROM Student group by batch");
+$total_cnt_batch = mysqli_query($mysqli, "SELECT Batch, count(ctc) as cnt_ctc FROM Student group by batch order by batch");
 ?>
 
 var myLabels_4=[<?php
@@ -87,6 +90,29 @@ while($info=mysqli_fetch_array($total_cnt_batch))
 
 for(let i=0;i<myLabels_4.length;i++){
     myData_4_1[i] = (myData_4_1[i]/myData_4_2[i])*100;
+}
+
+var myData_7_1=[<?php
+while($info=mysqli_fetch_array($cnt_branch))
+    echo $info[ 'cnt_ctc' ].','; /* We use the concatenation operator '.' to add comma delimiters after each data value. */
+?>];
+
+var myData_7_2=[<?php
+while($info=mysqli_fetch_array($total_cnt_branch))
+    echo $info[ 'cnt_ctc' ].','; /* We use the concatenation operator '.' to add comma delimiters after each data value. */
+?>];
+
+<?php
+$total_cnt_branch = mysqli_query($mysqli, "SELECT branch, count(ctc) as cnt_ctc from student group by branch order by branch");
+?>
+
+var myLabels_7=[<?php
+while($info=mysqli_fetch_array($total_cnt_branch))
+    echo '"'.$info[ 'branch' ].'",'; /* The concatenation operator '.' is used here to create string values from our database names. */
+?>];
+
+for(let i=0;i<myLabels_7.length;i++){
+    myData_7_1[i] = (myData_7_1[i]/myData_7_2[i])*100;
 }
 
 var myData_1_1=[<?php
@@ -177,7 +203,7 @@ while($info=mysqli_fetch_array($max_branch_ctc))
 ?>];
 
 <?php
-$branch_ctc = mysqli_query($mysqli, "SELECT branch, avg(ctc) as branch_avg FROM Student where ctc > 0 group by branch");
+$branch_ctc = mysqli_query($mysqli, "SELECT branch, avg(ctc) as branch_avg FROM Student where ctc > 0 group by branch order by branch");
 ?>
 
 var myLabels_2=[<?php
@@ -193,6 +219,7 @@ function toggleFirst(){
   hideId('myChart4');
   hideId('myChart5');
   hideId('myChart6');
+  hideId('myChart7');
   zingchart.exec('myChart1', 'reload');
 }
 
@@ -203,6 +230,7 @@ function toggleSecond(){
   hideId('myChart4');
   hideId('myChart5');
   hideId('myChart6');
+  hideId('myChart7');
   zingchart.exec('myChart2', 'reload');
 }
 
@@ -213,6 +241,7 @@ function toggleThird(){
   hideId('myChart4');
   hideId('myChart5');
   hideId('myChart6');
+  hideId('myChart7');
   zingchart.exec('myChart3', 'reload');
 }
 
@@ -223,6 +252,7 @@ function toggleFourth(){
   hideId('myChart3');
   hideId('myChart5');
   hideId('myChart6');
+  hideId('myChart7');
   zingchart.exec('myChart4', 'reload');
 }
 function toggleFifth(){
@@ -232,6 +262,7 @@ function toggleFifth(){
   hideId('myChart3');
   hideId('myChart4');
   hideId('myChart6');
+  hideId('myChart7');
   zingchart.exec('myChart5', 'reload');
 }
 function toggleSixth(){
@@ -241,7 +272,18 @@ function toggleSixth(){
   hideId('myChart3');
   hideId('myChart4');
   hideId('myChart5');
+  hideId('myChart7');
   zingchart.exec('myChart6', 'reload');
+}
+function toggleSeventh(){
+  toggleId("myChart7");
+  hideId('myChart1');
+  hideId('myChart2');
+  hideId('myChart3');
+  hideId('myChart4');
+  hideId('myChart5');
+  hideId('myChart6');
+  zingchart.exec('myChart7', 'reload');
 }
 
 function hideId(id){
@@ -273,9 +315,10 @@ function toggleId(id){
         <button onclick= "toggleFirst()" class='btn btn-info'> Show CTC per Batch</button> &emsp;
         <button onclick= "toggleSecond()" class='btn btn-info'> Show CTC Per Branch</button> &emsp;
         <button onclick= "toggleThird();" class='btn btn-info'> Show Roles Offered by Sector</button> &emsp;
-        <button onclick= "toggleFourth()" class='btn btn-info'> Placement Percentage</button> &emsp;
+        <button onclick= "toggleFourth()" class='btn btn-info'> Placement Percentage per batch</button> &emsp;
         <button onclick= "toggleFifth()" class='btn btn-info'> Company-Wise CTC</button> &emsp;
-        <button onclick= "toggleSixth()" class='btn btn-info'> Company Selection Stats</button> &emsp;<br>
+        <button onclick= "toggleSixth()" class='btn btn-info'> Company Selection Stats</button> &emsp;
+        <button onclick= "toggleSeventh()" class='btn btn-info'> Placement Percentage per branch</button> &emsp;<br>
     </div>
       <br><br>
       <div class="d-flex justify-content-center">
@@ -295,6 +338,9 @@ function toggleId(id){
       </div>
       <div class="d-flex justify-content-center">
         <div id="myChart6" class="chart--container"></div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div id="myChart7" class="chart--container"></div>
       </div>
     </div>
     <script>
@@ -747,6 +793,68 @@ function toggleId(id){
             width: "50%",
             height: 400,
             data: chart6_config
+        });
+    let chart7_config = {
+        type: 'bar',
+        backgroundColor:'transparent', // This is in the root
+        plotarea:{
+            backgroundColor:'transparent'
+        },
+        title: {
+            "text": "Placement Percentage",
+            "font-color": "#7E7E7E",
+            "backgroundColor": "none",
+            "font-size": "22px",
+            "alpha": 1,
+            "adjust-layout": true,
+        },
+        plot: {
+            "bars-space-left": 0.15,
+            "bars-space-right": 0.15,
+            'border-radius': "2px", /* Rounded Corners */
+            "animation": {
+                "effect": "ANIMATION_SLIDE_BOTTOM",
+                "sequence": 0,
+                "speed": 800,
+                "delay": 800
+            }
+        },
+        animation:{
+            effect: 2, 
+            method: 5,
+            speed: 900,
+            sequence: 1,
+            delay: 1000
+        },
+        'scale-y': {
+            "line-color": "#7E7E7E",
+            "item": {
+                "font-color": "#7e7e7e"
+            },
+            "label": {
+                "text": "Percentage",
+                "font-family": "arial",
+                "bold": true,
+                "font-size": "14px",
+                "font-color": "#7E7E7E",
+            },
+        },
+        'scale-x': {
+            labels: myLabels_7
+        },
+        series: [{
+            values:myData_7_1,
+            text: "Average",
+            backgroundColor: "#8a2387 #e94057 #f27121",
+            alpha: 1
+        }
+        ]
+    }
+        zingchart.render({
+            id: "myChart7",
+            width: "50%",
+            height: 400,
+            data: chart7_config
         });
     </script>
 </body>
