@@ -163,16 +163,13 @@ $d1=$res->fetch_assoc();
                 <input type="submit" class="btn btn-outline-primary" value="Update">
             </div>
             <div class="col">
-                <form action="student_delete.php" method="POST">
-                    <input type="hidden" name="id" value="<?php echo $d1['username'] ?>">
-                    <button type="submit" class="btn btn-outline-danger">Delete</button>
-                </form>
+
+                <a href ="./student_delete.php?id=<?php echo $d1['username'];?>"><input type='button' class="btn btn-outline-danger" value="Delete"/></a>
+
             </div>
             <div class="col">
-                <form action="student_role_applications.php" method="GET">
-                    <input type="hidden" name="id" value="<?php echo $d1['username']; ?>">
-                    <button type="submit" class="btn btn-outline-warning">Roles Eligible</button>
-                </form>
+                <a href ="./student_role_applications.php?id=<?php echo $d1['username'];?>"><input type='button' class="btn btn-outline-warning" value="Roles Eligible"?></a>
+
             </div>
         </div>
         <br>

@@ -3,9 +3,7 @@ include "admin_boiler.php";
 if(!isset($_GET['id'])){
     die();
 }
-$query=("delete from Student where username='". $_GET['id'] ."';");
-if($conn->query($query)){
-    header("Location: admin_page.php");
-}else{
-    echo $conn->error;
-}
+$conn->query("delete from Offers where username='".$_GET['id']."';");
+$conn->query("delete from Student where username='". $_GET['id'] ."';");
+
+header("Location: admin_page.php");
