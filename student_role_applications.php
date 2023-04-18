@@ -69,13 +69,14 @@ while ($row = $eligible->fetch_assoc()) {
     </nav>
     <div class="container mt-4">
     <br>
-    <?php
-        if(isset($output))
-            echo $output;
-    ?>
+    
     <div class="row gy-6">
     <form action="./apply.php" method="POST">
         <input type='hidden' name='id' value='<?php echo $res['username']; ?>'/>
+        <?php
+        if(isset($output))
+            echo $output;
+        ?>
     <div class="row gy-6">
         <input type="submit" value="OK" class="btn btn-primary btn-large justify-content-center">
     </div>
