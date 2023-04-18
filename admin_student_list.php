@@ -64,6 +64,9 @@ $conn->close();
 				<a class="nav-link" href="admin_roles.php">Roles</a>
 			  </li>
               <li class="nav-item">
+				<a class="nav-link" href="admin_graduate_batch.php">Graduate Current Batch</a>
+			  </li>
+              <li class="nav-item">
 				<a class="nav-link" href="logout_testing.php">Logout</a>
 			  </li>
 			</ul>
