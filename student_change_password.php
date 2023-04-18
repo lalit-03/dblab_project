@@ -11,6 +11,7 @@ $res = $stud->fetch_assoc();
 if($res['password']==$_POST['old']){
     $conn->query("update Student set password='".$_POST['new']."' where username='". $_POST['id']."';");
     header('Location: ./student_page.php');
-}else{
-    echo "Incorrect old password.";
+} else {
+    header('Location: ./student_page.php?error=' . urlencode('Incorrect old password.'));
 }
+?>

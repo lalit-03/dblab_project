@@ -64,6 +64,12 @@ $sem8_spi = $res['sem8_spi'];
             </ul>
 	</nav>
     <div class="container mt-4">
+		<?php
+			$error = isset($_GET['error']) ? $_GET['error'] : '';
+			if($error) {
+				echo "<div class='alert alert-danger text-center'><strong>". $error.'</strong></div>';
+			}
+		?>
 		<div class="row">
 			<div class="col-md-4 offset-md-4">
 				<div class="card">
