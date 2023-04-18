@@ -102,26 +102,26 @@ error_reporting(-1);
 		<p>Select students who applied for your offers.</p>
 	</div>
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark justify-content-center">
-			<ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="company_page.php">Create Offers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="company_roles.php">Previous Offers</a>
-                </li>
-                <li class="nav-item">
-                    <a class = "nav-link active" href="selection_company.php">Select Students</a>
-                </li>
-                <li class = "navbar-nav">
-                    <a class="nav-link" href="edit_company.php">Edit Profile</a>
-                </li>
-                <li class = "navbar-nav">
-                    <a class="nav-link" href="logout_testing.php">Logout</a>
-                </li>
-                <li class="nav-item">
-				    <a class="nav-link" href="statistics.php">Placement Statistics</a>
-			    </li>
-            </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="company_page.php">Create Offers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="company_roles.php">Previous Offers</a>
+            </li>
+            <li class="nav-item">
+                <a class = "nav-link active" href="selection_company.php">Select Students</a>
+            </li>
+            <li class = "navbar-nav">
+                <a class="nav-link" href="edit_company.php">Edit Profile</a>
+            </li>
+            <li class = "navbar-nav">
+                <a class="nav-link" href="logout_testing.php">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="statistics.php">Placement Statistics</a>
+            </li>
+        </ul>
 	</nav>
     <?php
             if(isset($message)){
