@@ -4,7 +4,6 @@ if(!isset($_POST['id'])){
 }
 $stud_id=$_POST['id'];
 include "student_boiler.php";
-
 $stud = $conn->query("select * from Student where username='".$_POST['id']."';");
 if($stud->num_rows==0)die();
 $res = $stud->fetch_assoc();

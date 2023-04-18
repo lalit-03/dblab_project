@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = 'Invalid company username or password';
     }
 
-    else {
+    elseif ($type == 'student') {
         $sql = "SELECT username, password FROM Student WHERE username='$username'";
         $result = $db->query($sql);
 
@@ -64,7 +64,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Authentication failed
         $error = 'Invalid student username or password';
     }
-    
+    else {
+        $sql = "SELECT username, password FROM Alumni WHERE username='$username'";
+        $result = $db->query($sql);
+
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            if ($password == $row['password']) {
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['user_type'] = 'alumni';
+                header("Location: alumni_page.php");
+            }
+        }
+        // echo $_SESSION['first_name'] . $_SESSION['last_name'];
+        // Authentication failed
+        $error = 'Invalid student username or password';
+    }
     // echo $_SESSION['first_name'] . $_SESSION['last_name'];
     // Authentication failed
 }
@@ -103,6 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <li class="nav-item">
 				<a class="nav-link" href="company_registration.php">Company Registration</a>
 			  </li>
+              <li class="nav-item">
+				<a class="nav-link" href="alumni_registration.php">Alumni Registration</a>
+			  </li>
 			</ul>
 		  
 	</nav>
@@ -126,6 +144,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="form-check">
                     <input type="radio" class="form-check-input" id="student" name="type" value="student">
                     <label class="form-check-label" for="student">Student</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="alumni" name="type" value="alumni">
+                    <label class="form-check-label" for="alumni">Alumni</label>
                 </div>
             </div>
             <br>

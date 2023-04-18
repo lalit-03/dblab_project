@@ -36,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$sem6spi = $_POST["sem6spi"];
 		$sem7spi = $_POST["sem7spi"];
 		$sem8spi = $_POST["sem8spi"];
+		$placed = $_POST["placed"];
+		$ctc = $_POST["ctc"];
 
 		// echo $username . "<br>";
 		// echo $rollno . "<br>";
@@ -59,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// echo $sem7spi . "<br>";
 		// echo $sem8spi . "<br>";
 
-        $user_query = "SELECT username FROM dblab_project.Student WHERE username='$username'";
+        $user_query = "SELECT username FROM dblab_project.Alumni WHERE username='$username'";
         $result = mysqli_query($conn, $user_query);
         $count = mysqli_num_rows($result);
         if($count == 0) {
@@ -76,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$error="Invalid Phone";
 			}
 			else {
-                $sql = "INSERT INTO dblab_project.Student (username, RollNumber, student_name, student_phone, student_email, DoB, Batch, degree, branch, marks_10, marks_12, sem1_spi, sem2_spi, sem3_spi, sem4_spi, sem5_spi, sem6_spi, sem7_spi, sem8_spi, password) VALUES ('$username', '$rollno', '$name', '$phone', '$email', '$dob', $batch, '$degree', '$branch', $marks10, $marks12, $sem1spi, $sem2spi, $sem3spi, $sem4spi, $sem5spi, $sem6spi, $sem7spi, $sem8spi, '$password')";
+                $sql = "INSERT INTO dblab_project.Alumni (username, RollNumber, alumni_name, alumni_phone, alumni_email, DoB, Batch, degree, branch, marks_10, marks_12, sem1_spi, sem2_spi, sem3_spi, sem4_spi, sem5_spi, sem6_spi, sem7_spi, sem8_spi, password,placed_company,ctc) VALUES ('$username', '$rollno', '$name', '$phone', '$email', '$dob', $batch, '$degree', '$branch', $marks10, $marks12, $sem1spi, $sem2spi, $sem3spi, $sem4spi, $sem5spi, $sem6spi, $sem7spi, $sem8spi, '$password', '$placed',$ctc)";
                 if (mysqli_query($conn, $sql)) {
                     $message=urlencode("Registration Successful!");
                     header("Location:login.php?message=".$message);
@@ -88,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         else {
             $error="Username has been taken, try another.<br>";
         }
-		
     }
 
 
@@ -99,15 +100,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Student Registration Form</title>
+	<title>Alumni Registration Form</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="bootstrap-5.3.0-alpha2-dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="bootstrap-5.3.0-alpha2-dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body style="background-color:powderblue;"">
+<body style="background-color:powderblue;">
 	<div class="container-fluid p-5 bg-primary text-white text-center">
-		<h1 class="display-1">Student Registration Form</h1>
+		<h1 class="display-1">Alumni Registration Form</h1>
 		<p>Create a username and password and enter the details carefully.</p>
 	</div>
 	<nav class="navbar navbar-expand-sm bg-primary navbar-dark justify-content-center">
@@ -116,19 +117,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			    <a class="nav-link" href="login.php">Login Page</a>
 			  </li>
 			  <li class="nav-item">
-				<a class="nav-link active" href="student_registration.php">Student Registration</a>
+				<a class="nav-link" href="student_registration.php">Student Registration</a>
 			  </li>
               <li class="nav-item">
 				<a class="nav-link" href="company_registration.php">Company Registration</a>
 			  </li>
-			  <li class="nav-item">
+			  <li class="nav-item active">
 				<a class="nav-link" href="alumni_registration.php">Alumni Registration</a>
 			  </li>
 			</ul>
 	</nav>
 <body>
 	<div class="container mt-3">
-	<h2>Add Student Record</h2>
+	<h2>Add Alumni Record</h2>
 	<form method="post" action="student_registration.php">
 		<div class="row gy-6">
 			<div class = "col">
@@ -153,17 +154,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</div>
 			
 		<div class="row gy-6">
-			<label for="studentname" class="form-label">Student Name:</label>
+			<label for="studentname" class="form-label">Name:</label>
 			<input class="form-control form-control-lg" type="text" name="studentname" required placeholder="Enter your Full Name"><br><br>
 		</div>
 		<hr>
 		<div class="row gy-6">
 			<div class="col">
-				<label for="studentphone" class="form-label">Student Phone:</label>
+				<label for="studentphone" class="form-label">Phone:</label>
 				<input class="form-control form-control-md" type="text" name="studentphone" required placeholder="Enter 10 digit number."><br><br>
 			</div>
 			<div class="col">
-				<label for="studentemail" class="form-label">Student Email:</label>
+				<label for="studentemail" class="form-label">Email:</label>
 				<input class="form-control form-control-md" type="email" name="studentemail" required placeholder="Enter institute's email address."><br><br>
 			</div>
 		</div>
@@ -239,13 +240,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			</div>
 		</div>
 		<div class="row gy-6">
+			<div class="col">
+				<label for="placed" class="form-label">Currently Placed Company</label>
+				<input class="form-control form-control-sm" type="text" name="placed" placeholder="Enter company name"><br><br>
+			</div>
+			<div class="col">
+				<label for="ctc" class="form-label">Current CTC:</label>
+				<input class="form-control form-control-sm" type="number" name="ctc" placeholder="Enter current CTC"><br><br>
+			</div>
+		</div>
+		<div class="row gy-6">
 			<hr>
 			<input type="submit" value="Register" class="btn btn-success btn-large justify-content-center">
 		</div>
-		<?php if (isset($error)){
-            echo "<hr><div class='alert alert-danger justify-content-center'><strong>$error</strong></div>";    
-		}
-        ?>
 	</form>	
 	</div>
 	<br>

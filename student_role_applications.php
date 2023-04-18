@@ -5,11 +5,11 @@ if(!isset($_GET['id'])){
 $stud_id=$_GET['id'];
 include "student_boiler.php";
 
-$stud = $conn->query("select * from Student where username='".$_GET['id']."';");
+$stud = $conn->query("select (IF(sem1_spi > 0, sem1_spi, 0) + IF(sem2_spi > 0, sem2_spi, 0) + IF(sem3_spi > 0, sem3_spi, 0) + IF(sem4_spi > 0, sem4_spi, 0) + IF(sem5_spi > 0, sem5_spi, 0) + IF(sem6_spi > 0, sem6_spi, 0) + IF(sem7_spi > 0, sem7_spi, 0) + IF(sem8_spi > 0, sem8_spi, 0)) / ((sem1_spi > 0) + (sem2_spi > 0) + (sem3_spi > 0) + (sem4_spi > 0) + (sem5_spi > 0) + (sem6_spi > 0) + (sem7_spi > 0) + (sem8_spi > 0)) AS CPI, username, ifnull(ctc,0) as ctc1 from Student where username='".$_GET['id']."';");
 if($stud->num_rows==0)die();
 $res = $stud->fetch_assoc();
-$cpi = ($res['sem1_spi']+$res['sem2_spi']+$res['sem3_spi']+$res['sem4_spi']+$res['sem5_spi']+$res['sem6_spi']+$res['sem7_spi']+$res['sem8_spi'])/8;
-$eligible = $conn->query("select company_name,role_id,Role_Name,min_cpi,description,mode_of_interview,ctc from Roles natural join Company where min_cpi<=".$cpi." order by ctc desc;");
+$cpi = $res["CPI"];
+$eligible = $conn->query("select company_name,role_id,Role_Name,min_cpi,description,mode_of_interview,ctc from Roles natural join Company where min_cpi<=".$cpi." and ctc>=".$res['ctc1']." order by ctc desc;");
 if($eligible->num_rows > 0){
     while($row = $eligible->fetch_assoc()){
         $ress1 = $conn->query("select count(*) as c from offers where username='".$_GET['id']. "' and role_id=".$row['role_id'].";");

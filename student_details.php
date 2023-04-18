@@ -40,6 +40,8 @@ sem6_spi: <input type="text" name="sem6_spi" value="<?php echo $d1['sem6_spi'];?
 sem7_spi: <input type="text" name="sem7_spi" value="<?php echo $d1['sem7_spi'];?>"/></br>
 sem8_spi: <input type="text" name="sem8_spi" value="<?php echo $d1['sem8_spi'];?>"/></br>
 password: <input type="text" name="password" value="<?php echo $d1['password'];?>"/></br>
+placed_company: <?php echo $d1['placed_company']?></br>
+ctc: <?php echo $d1['ctc']?></br>
 <input type="submit">
 <a href="student_delete.php?id=<?php echo $d1['username'] ?>"><input type="button" value="delete"></a>
 <a href="student_role_applications.php?id=<?php echo $d1['username'] ?>"><input type="button" value="Roles Eligible"></a>
