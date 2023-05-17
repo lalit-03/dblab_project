@@ -143,7 +143,7 @@ error_reporting(-1);
                 </div>
                 <div class="col">
                     <label for="ctc" class="form-label">Offered CTC:</label>
-                    <input class="form-control form-control-md" type="number" step="10000" name="ctc" required placeholder="eg.- 1200000">
+                    <input class="form-control form-control-md" type="number" name="ctc" required placeholder="eg.- 1200000">
                 </div>
 			</div>
             <br>
